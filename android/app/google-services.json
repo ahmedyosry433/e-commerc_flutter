@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "30001931826",
+    "project_id": "green-e-commerce",
+    "storage_bucket": "green-e-commerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30001931826:android:78dba61e37b71a7d64fe2b",
+        "android_client_info": {
+          "package_name": "com.example.flutter_welcome_login_singup_screens"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGXCe0BJ3cRij12mJQVEYgR2eCnIFGWOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
