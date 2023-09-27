@@ -4,10 +4,11 @@ import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_color
 
 // ignore: camel_case_types
 class productDetails extends StatelessWidget {
-  const productDetails({super.key});
-
+  final product;
+  const productDetails({Key? key, required this.product}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print(product);
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(

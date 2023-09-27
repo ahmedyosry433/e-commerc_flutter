@@ -7,7 +7,8 @@ import 'package:flutter_welcome_login_singup_screens/screens/signup.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'screens/login.dart';
+
+import 'screens/login/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,6 @@ class MyApp extends StatelessWidget {
           "/signup": (context) => const Signup(),
           "/login": (context) => const Login(),
           "/": (context) => const Welcome(),
-          "/details": (context) => const productDetails(),
         },
       ),
     );

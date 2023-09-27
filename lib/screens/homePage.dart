@@ -7,6 +7,8 @@ import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_color
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
 import 'package:http/http.dart' as http;
 
+import '../widgets/product-card/product-card.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -71,68 +73,7 @@ class _HomePageState extends State<HomePage> {
                           width: 170,
                           height: 200,
                           child: Expanded(
-                            child: Card(
-                              margin: const EdgeInsets.all(2.0),
-                              child: SizedBox(
-                                width: 150,
-                                height: 150,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed('/details');
-                                  },
-                                  child: Container(
-                                    color: AppColorLight.cardColor,
-                                    child: Stack(
-                                      children: [
-                                        // Product Image
-                                        Container(
-                                          alignment: Alignment.center,
-                                          child: Image.network(
-                                            '${snapshot.data![index].image}',
-                                            alignment: Alignment.center,
-                                            fit: BoxFit.contain,
-                                            width: 150,
-                                            height: 150,
-                                          ),
-                                        ),
-                                        // Overlay for Price, Rate, and Name
-                                        Positioned(
-                                          bottom: 0,
-                                          left: 0,
-                                          right: 0,
-                                          child: Container(
-                                            padding: const EdgeInsets.all(2),
-                                            height: 40,
-                                            color:
-                                                Colors.black.withOpacity(0.6),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                const Icon(
-                                                  Icons.favorite_outline,
-                                                  color: Colors.red,
-                                                ),
-                                                Text(
-                                                  subTitle,
-                                                  style: const TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                                const Icon(
-                                                  Icons.shopping_cart,
-                                                  color: Colors.white,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                            child: ProductCard(product:  snapshot.data![index] )
                           ),
                         ),
                       ],

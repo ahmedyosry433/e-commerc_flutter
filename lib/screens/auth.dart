@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_welcome_login_singup_screens/screens/login.dart';
 import 'homePage.dart';
+import 'login/login.dart';
 
 class Auth extends StatelessWidget {
   const Auth({super.key});
@@ -13,6 +13,7 @@ class Auth extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            print('--------   >');
             return const HomePage();
           } else {
             return const Login();
