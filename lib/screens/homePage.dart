@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
 import 'package:http/http.dart' as http;
-
 import '../widgets/product-card/product-card.dart';
 
 class HomePage extends StatefulWidget {
