@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  
   Future<List<AllProduct>> getData() async {
     String url = "https://fakestoreapi.com/products";
 
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                                 height: 150,
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.of(context).pushNamed('/');
+                                    Navigator.of(context).pushNamed('/details');
                                   },
                                   child: Container(
                                     color: AppColorLight.cardColor,

@@ -7,6 +7,7 @@ class AuthProvider with ChangeNotifier {
   final _userNameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+
   Future signIn() async {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _userNameController.text.trim(),
@@ -28,3 +29,5 @@ class AuthProvider with ChangeNotifier {
     _passwordController.dispose();
   }
 }
+
+
