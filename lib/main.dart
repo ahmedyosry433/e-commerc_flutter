@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/theme_data/theme_data_light.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/auth.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/authProvider.dart';
-import 'package:flutter_welcome_login_singup_screens/screens/product_detalis.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/signup.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';

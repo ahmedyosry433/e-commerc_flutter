@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/product_detalis.dart';
@@ -7,7 +8,7 @@ import '../../core/global/theme/app_colors/app_color_light.dart';
 class ProductCard extends StatelessWidget {
   final  AllProduct product;
 
-  const ProductCard({
+  const ProductCard({super.key, 
     required this.product,
   });
 
@@ -19,7 +20,7 @@ class ProductCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => productDetails(
-                      product: this.product,
+                      product: product,
                     )));
       },
       child: Card(
@@ -32,7 +33,7 @@ class ProductCard extends StatelessWidget {
               Container(
                 alignment: Alignment.center,
                 child: Image.network(
-                  this.product.image,
+                  product.image,
                   alignment: Alignment.center,
                   fit: BoxFit.contain,
                   width: 150,
@@ -56,7 +57,7 @@ class ProductCard extends StatelessWidget {
                         color: Colors.red,
                       ),
                       Text(
-                        this.product.title,
+                        product.title,
                         style: const TextStyle(color: Colors.white),
                       ),
                       const Icon(

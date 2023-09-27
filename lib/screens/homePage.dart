@@ -3,7 +3,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
 import 'package:http/http.dart' as http;
 import '../widgets/product-card/product-card.dart';
@@ -16,7 +15,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   Future<List<AllProduct>> getData() async {
     String url = "https://fakestoreapi.com/products";
 
@@ -63,8 +61,6 @@ class _HomePageState extends State<HomePage> {
                 children: List.generate(
                   snapshot.data!.length,
                   (index) {
-                    String subTitle =
-                        snapshot.data![index].title.substring(1, 15);
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -72,8 +68,8 @@ class _HomePageState extends State<HomePage> {
                           width: 170,
                           height: 200,
                           child: Expanded(
-                            child: ProductCard(product:  snapshot.data![index] )
-                          ),
+                              child:
+                                  ProductCard(product: snapshot.data![index])),
                         ),
                       ],
                     );

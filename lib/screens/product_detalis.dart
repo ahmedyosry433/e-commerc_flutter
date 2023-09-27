@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
 
 // ignore: camel_case_types
 class productDetails extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final product;
   const productDetails({Key? key, required this.product}) : super(key: key);
   @override
@@ -78,7 +78,7 @@ class productDetails extends StatelessWidget {
                   endIndent: 8,
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(8, 15, 8, 15),
+                  padding: const EdgeInsets.fromLTRB(8, 15, 8, 15),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Unit Price : 50\$",
@@ -118,7 +118,7 @@ class productDetails extends StatelessWidget {
                   endIndent: 8,
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(8, 15, 8, 15),
+                  padding: const EdgeInsets.fromLTRB(8, 15, 8, 15),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Product Specification",
