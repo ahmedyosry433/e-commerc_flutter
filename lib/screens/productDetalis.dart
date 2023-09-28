@@ -15,7 +15,17 @@ class productDetails extends StatelessWidget {
     String subtitle = product.title.substring(0, 12);
     return SafeArea(
       child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+              backgroundColor: AppColorLight.appBarColor,
+              onPressed: Provider.of<CartProvider>(context, listen: false)
+                  .addToCart(product),
+              child: const Icon(Icons.shopping_cart)),
           appBar: AppBar(
+            actions: [
+              IconButton(
+                  onPressed: () => Navigator.pushNamed(context, '/cart'),
+                  icon: const Icon(Icons.shopping_cart_outlined)),
+            ],
             title: Text(subtitle),
           ),
           body: SingleChildScrollView(
@@ -146,18 +156,6 @@ class productDetails extends StatelessWidget {
                     indent: 8,
                     endIndent: 8,
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Provider.of<CartProvider>(
-                        context,
-                        listen: false
-                      ).addToCart(product);
-                    },
-                    child: const Text(
-                      "Add To Cart",
-                    ),
-                  ),
-                  const SizedBox(height: 10),
                 ],
               ),
             ),
