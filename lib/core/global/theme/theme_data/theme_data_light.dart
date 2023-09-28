@@ -17,15 +17,11 @@ ThemeData getThemeDataLight() => ThemeData(
     ),
     textTheme: const TextTheme(
       titleLarge: TextStyle(
-          fontSize: 30,
-          color: AppColorLight.titleTextLargeLight,
-          fontFamily: "myfont"),
+        fontSize: 30,
+        color: AppColorLight.titleTextLargeLight,
+      ),
       titleMedium: TextStyle(
-          color: Colors.black,
-          fontFamily: "myfont",
-          fontSize: 27,
-          fontWeight: FontWeight.bold),
-      titleSmall:
-          TextStyle(color: Colors.black, fontFamily: "myfont", fontSize: 15),
+          color: Colors.black, fontSize: 27, fontWeight: FontWeight.bold),
+      titleSmall: TextStyle(color: Colors.black, fontSize: 15),
     ),
     iconTheme: const IconThemeData(color: AppColorLight.iconColor));

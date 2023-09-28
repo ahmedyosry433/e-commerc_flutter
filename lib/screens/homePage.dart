@@ -2,10 +2,12 @@
 
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_welcome_login_singup_screens/core/global/constants/constants.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
 import 'package:http/http.dart' as http;
-import '../widgets/product-card/product-card.dart';
+import '../widgets/product-card/productCard.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<List<AllProduct>> getData() async {
-    String url = "https://fakestoreapi.com/products";
+    String url = Constants.ApiUrl;
 
     var jsonData = await http.get(Uri.parse(url));
 
@@ -42,15 +44,30 @@ class _HomePageState extends State<HomePage> {
     futureproduct = getData();
   }
 
+  Future signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      print("Error Signout $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           shadowColor: Colors.white,
-          title: const Center(child: Text('Green Shop')),
+          title: const Center(child: Text(Constants.ProjectName)),
           leading: const Icon(Icons.menu),
-          actions: const [Icon(Icons.shopping_cart), Icon(Icons.draw_outlined)],
+          actions: [
+            IconButton(
+                onPressed: () => Navigator.pushNamed(context, '/cart'),
+                icon: const Icon(Icons.shopping_cart_outlined)),
+            IconButton(
+                onPressed: () => signOut(),
+                icon: const Icon(Icons.logout_outlined)),
+          ],
         ),
         body: FutureBuilder<List<AllProduct>>(
           future: futureproduct,
