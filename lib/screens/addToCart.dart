@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/constants/constants.dart';
-import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
 import 'package:flutter_welcome_login_singup_screens/widgets/product-card/cartCard.dart';
 import 'package:provider/provider.dart';
 

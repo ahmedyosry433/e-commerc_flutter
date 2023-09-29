@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
 
-class test extends StatelessWidget {
+class Test extends StatelessWidget {
+  const Test({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

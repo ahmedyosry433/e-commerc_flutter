@@ -2,6 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
+import 'package:flutter_welcome_login_singup_screens/provider/loginProvider.dart';
+import 'package:flutter_welcome_login_singup_screens/provider/signupProvider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -13,28 +18,49 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmpasswordController =
+      TextEditingController();
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-  Future<void> signUp() async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-    } catch (e) {
-      print("Error signing up: $e");
-    }
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    // Once signed in, return the UserCredential
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
   @override
   Widget build(BuildContext context) {
+    final providerSub = Provider.of<LoginProvider>(context);
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Scaffold(
-          body: SizedBox(
-            width: double.infinity,
-            child: Stack(
-              children: [
-                SizedBox(
+      child: Scaffold(
+        body: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: SizedBox(
                   width: double.infinity,
                   child: Padding(
                     padding: const EdgeInsets.all(25),
@@ -77,22 +103,62 @@ class _SignupState extends State<Signup> {
                               borderRadius: BorderRadius.circular(66)),
                           child: TextField(
                             controller: _passwordController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                                suffix: Icon(Icons.visibility),
-                                icon: Icon(
+                            obscureText: providerSub.visibility,
+                            decoration: InputDecoration(
+                                suffixIcon: TextButton(
+                                    onPressed: () {
+                                      providerSub.visibilityPassword();
+                                    },
+                                    child: Icon(providerSub.visibility
+                                        ? Icons.visibility
+                                        : Icons.visibility_off)),
+                                icon: const Icon(
                                   Icons.lock,
-                                  color: AppColorLight.iconColor,
                                 ),
                                 hintText: "Password",
+                                border: InputBorder.none),
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Container(
+                          width: 266,
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          decoration: BoxDecoration(
+                              color: AppColorLight.textBoxColor,
+                              borderRadius: BorderRadius.circular(66)),
+                          child: TextField(
+                            controller: _confirmpasswordController,
+                            obscureText: providerSub.visibility,
+                            decoration: InputDecoration(
+                                suffixIcon: TextButton(
+                                    onPressed: () {
+                                      providerSub.visibilityPassword();
+                                    },
+                                    child: Icon(providerSub.visibility
+                                        ? Icons.visibility
+                                        : Icons.visibility_off)),
+                                icon: const Icon(
+                                  Icons.lock,
+                                ),
+                                hintText: "Confirm Password",
                                 border: InputBorder.none),
                           ),
                         ),
                         const SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {
-                            signUp();
-                            Navigator.pushReplacementNamed(context, '/auth');
+                            if (_confirmpasswordController ==
+                                _passwordController) {
+                              Provider.of<SignupProvider>(context,
+                                      listen: false)
+                                  .signUp(
+                                emailController: _emailController,
+                                passwordController: _passwordController,
+                              );
+                              Navigator.pop(context);
+                            } else {
+                              Navigator.pushNamed(context, '/signup');
+                            }
                           },
                           child: const Text(
                             "SIGNUP",
@@ -137,7 +203,9 @@ class _SignupState extends State<Signup> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                signInWithFacebook();
+                              },
                               child: Container(
                                 padding: const EdgeInsets.all(13),
                                 decoration: BoxDecoration(
@@ -154,7 +222,9 @@ class _SignupState extends State<Signup> {
                             ),
                             const SizedBox(width: 20),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                signInWithGoogle();
+                              },
                               child: Container(
                                 padding: const EdgeInsets.all(13),
                                 decoration: BoxDecoration(
@@ -192,22 +262,22 @@ class _SignupState extends State<Signup> {
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 0,
-                  child: Image.asset(
-                    "assets/images/signup_top.png",
-                    width: 100,
-                  ),
+              ),
+              Positioned(
+                left: 0,
+                child: Image.asset(
+                  "assets/images/signup_top.png",
+                  width: 100,
                 ),
-                Positioned(
-                  bottom: 0,
-                  child: Image.asset(
-                    "assets/images/main_bottom.png",
-                    width: 70,
-                  ),
-                )
-              ],
-            ),
+              ),
+              Positioned(
+                bottom: 0,
+                child: Image.asset(
+                  "assets/images/main_bottom.png",
+                  width: 70,
+                ),
+              )
+            ],
           ),
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'homePage.dart';
-import 'login/login.dart';
+import 'welcome.dart';
 
 class Auth extends StatelessWidget {
   const Auth({super.key});
@@ -15,7 +15,7 @@ class Auth extends StatelessWidget {
           if (snapshot.hasData) {
             return const HomePage();
           } else {
-            return const Login();
+            return const Welcome();
           }
         },
       ),

@@ -52,7 +52,7 @@ class productDetails extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
                       subtitle,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                   Padding(
@@ -90,7 +90,7 @@ class productDetails extends StatelessWidget {
                         ),
                         Text(
                           "\$${product.price}",
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         )
                       ],
                     ),
