@@ -205,6 +205,7 @@ class _SignupState extends State<Signup> {
                             GestureDetector(
                               onTap: () {
                                 signInWithFacebook();
+                                Navigator.pushNamed(context, 'auth');
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(13),
@@ -224,6 +225,7 @@ class _SignupState extends State<Signup> {
                             GestureDetector(
                               onTap: () {
                                 signInWithGoogle();
+                                Navigator.pushNamed(context, 'auth');
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(13),
