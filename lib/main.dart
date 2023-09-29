@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/theme_data/theme_data_light.dart';
-import 'package:flutter_welcome_login_singup_screens/screens/auth.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/authProvider.dart';
-import 'package:flutter_welcome_login_singup_screens/screens/product_detalis.dart';
+import 'package:flutter_welcome_login_singup_screens/provider/signupProvider.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/signup.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
+import 'provider/cartProvider.dart';
+import 'provider/productDetailsProvider.dart';
+import 'screens/addToCart.dart';
+import 'provider/loginProvider.dart';
+import 'screens/splash.dart';
 import 'screens/login/login.dart';
 
 void main() async {
@@ -21,8 +25,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AuthProvider>(
-      create: (context) => AuthProvider(),
+    return MultiProvider(
+      providers: [
+        ListenableProvider<AuthProvider>(create: (context) => AuthProvider()),
+        ListenableProvider<ProductDetailsProvider>(
+            create: (context) => ProductDetailsProvider()),
+        ListenableProvider<CartProvider>(create: (context) => CartProvider()),
+        ListenableProvider<LoginProvider>(create: (context) => LoginProvider()),
+        ListenableProvider<SignupProvider>(
+            create: (context) => SignupProvider()),
+      ],
       child: MaterialApp(
         theme: getThemeDataLight(),
         initialRoute: "/auth",
@@ -31,6 +43,7 @@ class MyApp extends StatelessWidget {
           "/signup": (context) => const Signup(),
           "/login": (context) => const Login(),
           "/": (context) => const Welcome(),
+          "/cart": (context) => const ToCart(),
         },
       ),
     );

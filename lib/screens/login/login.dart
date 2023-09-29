@@ -1,7 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/loginProvider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -13,11 +15,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _userNameController = TextEditingController();
   final _passwordController = TextEditingController();
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _userNameController.text.trim(),
-        password: _passwordController.text.trim());
-  }
 
   @override
   void dispose() {
@@ -28,6 +25,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final providerSub = Provider.of<LoginProvider>(context);
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -78,20 +76,32 @@ class _LoginState extends State<Login> {
                               borderRadius: BorderRadius.circular(66)),
                           child: TextField(
                             controller: _passwordController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                                icon: Icon(
-                                  Icons.lock,
-                                ),
-                                suffixIcon: Icon(Icons.visibility),
-                                hintText: "Password",
-                                border: InputBorder.none),
+                            obscureText: providerSub.visibility,
+                            decoration: InputDecoration(
+                              icon: const Icon(
+                                Icons.lock,
+                              ),
+                              suffixIcon: TextButton(
+                                onPressed: () {
+                                  providerSub.visibilityPassword();
+                                },
+                                child: Icon(providerSub.visibility
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                              ),
+                              border: InputBorder.none,
+                              hintText: "Password",
+                            ),
                           ),
                         ),
                         const SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {
-                            signIn();
+                            Provider.of<LoginProvider>(context, listen: false)
+                                .signIn(
+                                    userNameController: _userNameController,
+                                    passwordController: _passwordController);
+                            Navigator.pop(context);
                           },
                           child: const Text(
                             "LOGIN",
