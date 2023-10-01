@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/theme_data/theme_data_light.dart';
-import 'package:flutter_welcome_login_singup_screens/provider/authProvider.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/signupProvider.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/signup.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/welcome.dart';
@@ -27,7 +26,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ListenableProvider<AuthProvider>(create: (context) => AuthProvider()),
         ListenableProvider<ProductDetailsProvider>(
             create: (context) => ProductDetailsProvider()),
         ListenableProvider<CartProvider>(create: (context) => CartProvider()),

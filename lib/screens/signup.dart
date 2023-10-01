@@ -2,11 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
-import 'package:flutter_welcome_login_singup_screens/provider/loginProvider.dart';
-import 'package:flutter_welcome_login_singup_screens/provider/signupProvider.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+
+import '../forms/signupForm.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -16,10 +15,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmpasswordController =
-      TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey();
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -52,7 +48,6 @@ class _SignupState extends State<Signup> {
 
   @override
   Widget build(BuildContext context) {
-    final providerSub = Provider.of<LoginProvider>(context);
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -77,94 +72,8 @@ class _SignupState extends State<Signup> {
                           width: 170,
                         ),
                         const SizedBox(height: 25),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(66),
-                              color: AppColorLight.textBoxColor),
-                          width: 266,
-                          child: TextField(
-                            controller: _emailController,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              icon: Icon(
-                                Icons.person,
-                              ),
-                              hintText: "Your Email",
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Container(
-                          width: 266,
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          decoration: BoxDecoration(
-                              color: AppColorLight.textBoxColor,
-                              borderRadius: BorderRadius.circular(66)),
-                          child: TextField(
-                            controller: _passwordController,
-                            obscureText: providerSub.visibility,
-                            decoration: InputDecoration(
-                                suffixIcon: TextButton(
-                                    onPressed: () {
-                                      providerSub.visibilityPassword();
-                                    },
-                                    child: Icon(providerSub.visibility
-                                        ? Icons.visibility
-                                        : Icons.visibility_off)),
-                                icon: const Icon(
-                                  Icons.lock,
-                                ),
-                                hintText: "Password",
-                                border: InputBorder.none),
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Container(
-                          width: 266,
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          decoration: BoxDecoration(
-                              color: AppColorLight.textBoxColor,
-                              borderRadius: BorderRadius.circular(66)),
-                          child: TextField(
-                            controller: _confirmpasswordController,
-                            obscureText: providerSub.visibility,
-                            decoration: InputDecoration(
-                                suffixIcon: TextButton(
-                                    onPressed: () {
-                                      providerSub.visibilityPassword();
-                                    },
-                                    child: Icon(providerSub.visibility
-                                        ? Icons.visibility
-                                        : Icons.visibility_off)),
-                                icon: const Icon(
-                                  Icons.lock,
-                                ),
-                                hintText: "Confirm Password",
-                                border: InputBorder.none),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (_confirmpasswordController ==
-                                _passwordController) {
-                              Provider.of<SignupProvider>(context,
-                                      listen: false)
-                                  .signUp(
-                                emailController: _emailController,
-                                passwordController: _passwordController,
-                              );
-                              Navigator.pop(context);
-                            } else {
-                              Navigator.pushNamed(context, '/signup');
-                            }
-                          },
-                          child: const Text(
-                            "SIGNUP",
-                          ),
-                        ),
-                        const SizedBox(height: 10),
+                        SignupForm(), //form import
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

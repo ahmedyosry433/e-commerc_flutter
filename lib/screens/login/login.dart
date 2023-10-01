@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
@@ -97,11 +98,45 @@ class _LoginState extends State<Login> {
                         const SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {
-                            Provider.of<LoginProvider>(context, listen: false)
-                                .signIn(
-                                    userNameController: _userNameController,
-                                    passwordController: _passwordController);
-                            Navigator.pop(context);
+                            try {
+                              Provider.of<LoginProvider>(context, listen: false)
+                                  .signIn(
+                                      userNameController: _userNameController,
+                                      passwordController: _passwordController);
+                            } catch (e) {
+                              // Handle specific FirebaseAuthExceptions
+                              if (e is FirebaseAuthException) {
+                                //user Not Found
+                                if (e.code == 'user-not-found') {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('User not found')));
+                                  //Wrong Password
+                                } else if (e.code == 'wrong-password') {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Wrong password')));
+                                } else if (e.code == 'invalid-email') {
+                                  // Invalid email format
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content:
+                                              Text('Invalid email format')));
+                                } else {
+                                  // Handle other FirebaseAuthExceptions or display a generic error
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'Authentication error: ${e.code}')));
+                                }
+                              } else {
+                                // Handle other exceptions (not related to Firebase Authentication)
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'An unexpected error occurred: $e')));
+                              }
+                            }
                           },
                           child: const Text(
                             "LOGIN",
