@@ -103,6 +103,7 @@ class _LoginState extends State<Login> {
                                   .signIn(
                                       userNameController: _userNameController,
                                       passwordController: _passwordController);
+                              Navigator.pop(context);
                             } catch (e) {
                               // Handle specific FirebaseAuthExceptions
                               if (e is FirebaseAuthException) {

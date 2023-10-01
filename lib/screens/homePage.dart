@@ -45,11 +45,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future signOut() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-    } catch (e) {
-      print("Error Signout $e");
-    }
+    await FirebaseAuth.instance.signOut();
   }
 
   @override
@@ -65,7 +61,28 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () => Navigator.pushNamed(context, '/cart'),
                 icon: const Icon(Icons.shopping_cart_outlined)),
             IconButton(
-                onPressed: () => signOut(),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Log Out'),
+                      content: const Text('Do You Want To Logout ?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Cansel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            signOut();
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Yes'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.logout_outlined)),
           ],
         ),
