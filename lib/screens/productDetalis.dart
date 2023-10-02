@@ -17,7 +17,7 @@ class productDetails extends StatelessWidget {
       child: Scaffold(
           floatingActionButton: FloatingActionButton(
               backgroundColor: AppColorLight.appBarColor,
-              onPressed: Provider.of<CartProvider>(context, listen: false)
+              onPressed:()=> Provider.of<CartProvider>(context, listen: false)
                   .addToCart(product),
               child: const Icon(Icons.shopping_cart)),
           appBar: AppBar(

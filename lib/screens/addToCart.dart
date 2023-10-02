@@ -20,7 +20,7 @@ class ToCart extends StatelessWidget {
         body: ListView.builder(
             itemCount: Provider.of<CartProvider>(context).cartItems.length,
             itemBuilder: (context, index) {
-              final productLoop =
+              final _product =
                   Provider.of<CartProvider>(context).cartItems[index];
 
               return Column(
@@ -28,7 +28,7 @@ class ToCart extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.fromLTRB(4, 0, 4, 10),
                     height: 100,
-                    child: Expanded(child: CartCard(product: productLoop)),
+                   child: Expanded(child: CartCard(product: _product)),
                   ),
                 ],
               );
