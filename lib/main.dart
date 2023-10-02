@@ -6,6 +6,7 @@ import 'package:flutter_welcome_login_singup_screens/screens/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
+import 'forms/validation.dart';
 import 'provider/cartProvider.dart';
 import 'provider/productDetailsProvider.dart';
 import 'screens/addToCart.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         ListenableProvider<LoginProvider>(create: (context) => LoginProvider()),
         ListenableProvider<SignupProvider>(
             create: (context) => SignupProvider()),
+        ListenableProvider<Validation>(create: (context) => Validation()),
       ],
       child: MaterialApp(
         theme: getThemeDataLight(),

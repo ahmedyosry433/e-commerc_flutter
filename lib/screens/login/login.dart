@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
                                 icon: Icon(
                                   Icons.person,
                                 ),
-                                hintText: "User Name",
+                                hintText: "Your Email",
                                 border: InputBorder.none),
                           ),
                         ),
@@ -103,7 +103,7 @@ class _LoginState extends State<Login> {
                                   .signIn(
                                       userNameController: _userNameController,
                                       passwordController: _passwordController);
-                              Navigator.pop(context);
+                              Navigator.popAndPushNamed(context, '/auth');
                             } catch (e) {
                               // Handle specific FirebaseAuthExceptions
                               if (e is FirebaseAuthException) {
