@@ -15,6 +15,10 @@ class LoginProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   visibilityPassword() {
     visibility = !visibility;
     notifyListeners();

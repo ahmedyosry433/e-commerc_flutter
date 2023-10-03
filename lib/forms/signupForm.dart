@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers, file_names
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -121,6 +121,8 @@ class SignupForm extends StatelessWidget {
               controller: _confirmpasswordController,
               obscureText: providerSub.visibility,
               decoration: InputDecoration(
+                  focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green, width: 1)),
                   suffixIcon: TextButton(
                       onPressed: () {
                         providerSub.visibilityPassword();

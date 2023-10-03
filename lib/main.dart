@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'forms/validation.dart';
 import 'provider/cartProvider.dart';
 import 'provider/productDetailsProvider.dart';
-import 'screens/addToCart.dart';
+import 'screens/cart.dart';
 import 'provider/loginProvider.dart';
 import 'screens/splash.dart';
 import 'screens/login/login.dart';

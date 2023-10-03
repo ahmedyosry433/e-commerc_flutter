@@ -6,7 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/constants/constants.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
+import 'package:flutter_welcome_login_singup_screens/provider/loginProvider.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import '../widgets/componant/drawer.dart';
 import '../widgets/product-card/productCard.dart';
 
 class HomePage extends StatefulWidget {
@@ -44,18 +47,14 @@ class _HomePageState extends State<HomePage> {
     futureproduct = getData();
   }
 
-  Future signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        drawer: const MyDrawer(),
         appBar: AppBar(
           shadowColor: Colors.white,
           title: const Center(child: Text(Constants.ProjectName)),
-          leading: const Icon(Icons.menu),
           actions: [
             IconButton(
                 onPressed: () => Navigator.pushNamed(context, '/cart'),
@@ -70,11 +69,14 @@ class _HomePageState extends State<HomePage> {
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context),
-                          child: const Text('Cansel'),
+                          child: const Text('Cancel'),
                         ),
                         TextButton(
-                          onPressed: () {
-                            signOut();
+                          onPressed: () async {
+                            await Provider.of<LoginProvider>(context,
+                                    listen: false)
+                                .signOut();
+                            // ignore: use_build_context_synchronously
                             Navigator.pop(context);
                           },
                           child: const Text('Yes'),
