@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
+import 'package:collection/collection.dart';
 
 class CartProvider with ChangeNotifier {
   List<AllProduct> cartItems = [];
@@ -21,7 +22,7 @@ class CartProvider with ChangeNotifier {
   }
 
   addToCart({required AllProduct newProduct}) {
-    final existingItem = cartItems.firstWhere(
+    final AllProduct? existingItem = cartItems.firstWhereOrNull(
       (item) => item.id == newProduct.id,
     );
     if (existingItem != null) {
