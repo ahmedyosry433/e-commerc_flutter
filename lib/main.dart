@@ -27,8 +27,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ListenableProvider<ProductDetailsProvider>(
-            create: (context) => ProductDetailsProvider()),
         ListenableProvider<CartProvider>(create: (context) => CartProvider()),
         ListenableProvider<LoginProvider>(create: (context) => LoginProvider()),
         ListenableProvider<SignupProvider>(

@@ -1,3 +1,4 @@
+// ignore_for_file: unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
@@ -5,8 +6,29 @@ import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart'
 class CartProvider with ChangeNotifier {
   List<AllProduct> cartItems = [];
 
-  addToCart(AllProduct product) {
-    cartItems.add(product);
+  int countQuantity = 1;
+
+  incrementQuantity() {
+    countQuantity++;
+    notifyListeners();
+  }
+
+  decreaseQuantity() {
+    if (countQuantity > 1) {
+      countQuantity--;
+    }
+    notifyListeners();
+  }
+
+  addToCart({required AllProduct newProduct}) {
+    final existingItem = cartItems.firstWhere(
+      (item) => item.id == newProduct.id,
+    );
+    if (existingItem != null) {
+      countQuantity++;
+    } else {
+      cartItems.add(newProduct);
+    }
     notifyListeners();
   }
 }

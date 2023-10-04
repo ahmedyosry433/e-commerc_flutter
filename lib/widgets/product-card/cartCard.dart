@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/global/theme/app_colors/app_color_light.dart';
+import '../../provider/cartProvider.dart';
 import '../../screens/productDetalis.dart';
 
 // ignore: must_be_immutable
@@ -60,7 +62,7 @@ class CartCard extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "2 ×",
+                  "${Provider.of<CartProvider>(context).countQuantity} ×",
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],

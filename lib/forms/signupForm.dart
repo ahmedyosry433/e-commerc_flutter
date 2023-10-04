@@ -34,6 +34,7 @@ class SignupForm extends StatelessWidget {
   }
 
   GlobalKey<FormState> formKey = GlobalKey();
+  
   @override
   Widget build(BuildContext context) {
     final providerSub = Provider.of<LoginProvider>(context);
@@ -121,8 +122,6 @@ class SignupForm extends StatelessWidget {
               controller: _confirmpasswordController,
               obscureText: providerSub.visibility,
               decoration: InputDecoration(
-                  focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 1)),
                   suffixIcon: TextButton(
                       onPressed: () {
                         providerSub.visibilityPassword();
@@ -147,7 +146,7 @@ class SignupForm extends StatelessWidget {
                     passwordController: _passwordController);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Registration Is Sucsess'),
+                    content: Text('Registration Is Success'),
                   ),
                 );
                 Navigator.popAndPushNamed(context, '/auth');

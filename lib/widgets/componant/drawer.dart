@@ -1,5 +1,6 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, must_be_immutable
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
 import 'package:provider/provider.dart';
@@ -7,8 +8,9 @@ import 'package:provider/provider.dart';
 import '../../provider/loginProvider.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
+  MyDrawer({super.key});
 
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -16,8 +18,8 @@ class MyDrawer extends StatelessWidget {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text("ahmed"),
-            accountEmail: const Text("ahmed@gmail.com"),
+            accountEmail: Text('${user!.email}'),
+            accountName: const Text(""),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.network(
@@ -37,7 +39,7 @@ class MyDrawer extends StatelessWidget {
                         'https://st2.depositphotos.com/2124221/46122/i/1600/depositphotos_461226038-stock-photo-abstract-geometric-background-poly-pattern.jpg'))),
           ),
           ListTile(
-            leading: Icon(Icons.shopping_cart),
+            leading: const Icon(Icons.shopping_cart),
             title: InkWell(
               onTap: () {
                 Navigator.pushNamed(context, '/cart');

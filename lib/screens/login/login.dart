@@ -97,9 +97,10 @@ class _LoginState extends State<Login> {
                         ),
                         const SizedBox(height: 20),
                         ElevatedButton(
-                          onPressed: ()async  {
+                          onPressed: () async {
                             try {
-                             await  Provider.of<LoginProvider>(context, listen: false)
+                              await Provider.of<LoginProvider>(context,
+                                      listen: false)
                                   .signIn(
                                       userNameController: _userNameController,
                                       passwordController: _passwordController);

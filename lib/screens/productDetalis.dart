@@ -3,8 +3,6 @@ import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_color
 import 'package:flutter_welcome_login_singup_screens/provider/cartProvider.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/productDetailsProvider.dart';
-
 // ignore: camel_case_types
 class productDetails extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -13,12 +11,25 @@ class productDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String subtitle = product.title.substring(0, 12);
+
     return SafeArea(
       child: Scaffold(
           floatingActionButton: FloatingActionButton(
               backgroundColor: AppColorLight.appBarColor,
-              onPressed:()=> Provider.of<CartProvider>(context, listen: false)
-                  .addToCart(product),
+              onPressed: () {
+                try {
+                  Provider.of<CartProvider>(context, listen: false)
+                      .addToCart(newProduct: product);
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Product added successfully"),
+                  ));
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Added Faild "),
+                  ));
+                  print('_____________$e');
+                }
+              },
               child: const Icon(Icons.shopping_cart)),
           appBar: AppBar(
             actions: [
@@ -62,10 +73,9 @@ class productDetails extends StatelessWidget {
                       children: [
                         IconButton(
                           icon: const Icon(Icons.remove),
-                          onPressed: () => Provider.of<ProductDetailsProvider>(
-                                  context,
-                                  listen: false)
-                              .decreaseQuantity(),
+                          onPressed: () =>
+                              Provider.of<CartProvider>(context, listen: false)
+                                  .decreaseQuantity(),
                         ),
                         Container(
                             alignment: Alignment.center,
@@ -78,15 +88,14 @@ class productDetails extends StatelessWidget {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: Text(
-                              'Quantity ${Provider.of<ProductDetailsProvider>(context).countQuantity}',
+                              'Quantity ${Provider.of<CartProvider>(context).countQuantity}',
                               style: Theme.of(context).textTheme.titleSmall,
                             )),
                         IconButton(
                           icon: const Icon(Icons.add),
-                          onPressed: () => Provider.of<ProductDetailsProvider>(
-                                  context,
-                                  listen: false)
-                              .incrementQuantity(),
+                          onPressed: () =>
+                              Provider.of<CartProvider>(context, listen: false)
+                                  .incrementQuantity(),
                         ),
                         Text(
                           "\$${product.price}",

@@ -66,8 +66,20 @@ class ProductCard extends StatelessWidget {
                     ),
                     IconButton(
                         onPressed: () {
-                          Provider.of<CartProvider>(context, listen: false)
-                              .addToCart(product);
+                          try {
+                            Provider.of<CartProvider>(context, listen: false)
+                                .addToCart(newProduct: product);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Product added successfully"),
+                            ));
+                          } catch (e) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Added Faild "),
+                            ));
+                            print('_____________$e');
+                          }
                         },
                         icon: const Icon(
                           Icons.shopping_cart,

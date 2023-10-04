@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/constants/constants.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
@@ -51,7 +50,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: const MyDrawer(),
+        drawer: MyDrawer(),
         appBar: AppBar(
           shadowColor: Colors.white,
           title: const Center(child: Text(Constants.ProjectName)),
