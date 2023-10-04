@@ -26,7 +26,7 @@ class CartProvider with ChangeNotifier {
       (item) => item.id == newProduct.id,
     );
     if (existingItem != null) {
-      countQuantity++;
+      existingItem.quantity++;
     } else {
       cartItems.add(newProduct);
     }
