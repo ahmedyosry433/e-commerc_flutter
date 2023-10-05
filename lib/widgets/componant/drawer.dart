@@ -18,7 +18,7 @@ class MyDrawer extends StatelessWidget {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountEmail: Text('${user!.uid}'),
+            accountEmail: Text('${user!.email}'),
             accountName: const Text(""),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(

@@ -44,7 +44,6 @@ class CartProvider with ChangeNotifier {
           product: newProduct));
     }
     //calcTotalCartPrice();
-    saveLocalStorage();
     notifyListeners();
   }
 
@@ -73,14 +72,34 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  saveLocalStorage() {
-    final jsonString = jsonEncode(cartItems);
-    SharedPrefrenceHelper().setValueForKey('CART', jsonString);
+  savetoFirebase() {
+    //   String uid = userCredential.user!.uid;
+    // // Create a new User object with the provided data
+    // User FirebaseCartItem = {
+    // uid:uid,
+    // cartItems:cartItems
+    //
+    // }
+
+    // // Store the user's data in Firestore
+    // await FirebaseFirestore.instance.collection('cart').doc(uid).set(cart.toJson());
+  }
+
+  getFormFirebase() {
+    //   String uid = userCredential.user!.uid;
+    // // Create a new User object with the provided data
+    //  DocumentSnapshot userSnapshot =
+    //     await FirebaseFirestore.instance.collection('cart').doc(uid).get();
+
+    // if (userSnapshot.exists) {
+    //   // User data found in Firestore
+    //   return userSnapshot.data() as Map<String, dynamic>;
+    // } else {
+    //   // User data not found
+    //   return null;
+    // }
   }
 }
-
-
-
 
 // addToCart(AllProduct product) async {
 //     cartItems
@@ -101,6 +120,5 @@ class CartProvider with ChangeNotifier {
 //   }
 
 //   isProductExistAtCart(newproduct) {
-    
 
 //   }
