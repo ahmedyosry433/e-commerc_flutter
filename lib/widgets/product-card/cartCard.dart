@@ -62,7 +62,7 @@ class CartCard extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "${Provider.of<CartProvider>(context).countQuantity} ×",
+                  "${product.quantity} ×",
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],

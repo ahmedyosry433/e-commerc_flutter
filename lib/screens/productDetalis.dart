@@ -75,7 +75,7 @@ class productDetails extends StatelessWidget {
                           icon: const Icon(Icons.remove),
                           onPressed: () =>
                               Provider.of<CartProvider>(context, listen: false)
-                                  .decreaseQuantity(),
+                                  .removeCart(newProduct: product),
                         ),
                         Container(
                             alignment: Alignment.center,
@@ -95,7 +95,7 @@ class productDetails extends StatelessWidget {
                           icon: const Icon(Icons.add),
                           onPressed: () =>
                               Provider.of<CartProvider>(context, listen: false)
-                                  .incrementQuantity(),
+                                  .addToCart(newProduct: product),
                         ),
                         Text(
                           "\$${product.price}",

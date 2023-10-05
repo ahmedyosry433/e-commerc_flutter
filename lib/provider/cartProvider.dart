@@ -7,7 +7,7 @@ import 'package:collection/collection.dart';
 class CartProvider with ChangeNotifier {
   List<AllProduct> cartItems = [];
 
-  int countQuantity = 1;
+  late int countQuantity;
 
   incrementQuantity() {
     countQuantity++;
@@ -27,8 +27,27 @@ class CartProvider with ChangeNotifier {
     );
     if (existingItem != null) {
       existingItem.quantity++;
+      countQuantity = existingItem.quantity;
     } else {
       cartItems.add(newProduct);
+    }
+    notifyListeners();
+  }
+
+  removeCart({required AllProduct newProduct}) {
+    final AllProduct? existingItem = cartItems.firstWhereOrNull(
+      (item) => item.id == newProduct.id,
+    );
+    if (existingItem != null) {
+      if (existingItem.quantity == 1) {
+        existingItem.quantity--;
+        countQuantity = existingItem.quantity;
+        if (existingItem.quantity < 1) {
+          cartItems.remove(newProduct);
+        }
+      }
+    } else {
+      cartItems.remove(newProduct);
     }
     notifyListeners();
   }
