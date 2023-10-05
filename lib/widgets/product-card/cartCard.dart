@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
+import 'package:flutter_welcome_login_singup_screens/model/cart-item.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/global/theme/app_colors/app_color_light.dart';
@@ -8,12 +9,12 @@ import '../../screens/productDetalis.dart';
 
 // ignore: must_be_immutable
 class CartCard extends StatelessWidget {
-  AllProduct product;
-  CartCard({super.key, required this.product});
+  CartItem cartItem;
+  CartCard({super.key, required this.cartItem});
 
   @override
   Widget build(BuildContext context) {
-    String subtitle = product.title.substring(0, 10);
+    String subtitle = cartItem.title.substring(0, 10);
     return Scaffold(
       body: GestureDetector(
         onTap: () {
@@ -21,7 +22,7 @@ class CartCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => productDetails(
-                        product: product,
+                        product: cartItem,
                       )));
         },
         child: Card(
@@ -40,10 +41,13 @@ class CartCard extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
                           color: Colors.white),
-                      child: Text(
-                        '${product.price}',
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
+                      child: Image.network(
+                  cartItem.product.image,
+                  alignment: Alignment.center,
+                  fit: BoxFit.contain,
+                  width: 50,
+                  height: 50,
+                ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(12.0),
@@ -55,14 +59,14 @@ class CartCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                           const SizedBox(height: 4),
-                          const Text("Total: 525.0"),
+                           Text("Total: ${cartItem.totalPrice} "),
                         ],
                       ),
                     ),
                   ],
                 ),
                 Text(
-                  "${product.quantity} ×",
+                  "${cartItem.quantity} ×",
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],

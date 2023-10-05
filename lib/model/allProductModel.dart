@@ -1,16 +1,16 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, file_names
 
-class AllProduct {
+class Product {
   final id;
   final title;
-  final price;
+  final  price;
   final description;
   final category;
   final image;
   final rating;
   int quantity;
 
-  AllProduct(
+  Product(
       {required this.id,
       required this.title,
       required this.price,
@@ -20,8 +20,8 @@ class AllProduct {
       required this.rating,
       this.quantity = 1});
 
-  factory AllProduct.fromJson(Map<String, dynamic> json) {
-    return AllProduct(
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
       id: json["id"],
       title: json["title"],
       price: json["price"],

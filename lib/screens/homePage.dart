@@ -19,17 +19,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<List<AllProduct>> getData() async {
+  Future<List<Product>> getData() async {
     String url = Constants.ApiUrl;
 
     var jsonData = await http.get(Uri.parse(url));
 
     if (jsonData.statusCode == 200) {
       List data = jsonDecode(jsonData.body);
-      List<AllProduct> productList = [];
+      List<Product> productList = [];
 
       for (var a in data) {
-        AllProduct allProductObject = AllProduct.fromJson(a);
+        Product allProductObject = Product.fromJson(a);
         productList.add(allProductObject);
       }
       return productList;
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  late Future<List<AllProduct>> futureproduct;
+  late Future<List<Product>> futureproduct;
 
   @override
   void initState() {
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.logout_outlined)),
           ],
         ),
-        body: FutureBuilder<List<AllProduct>>(
+        body: FutureBuilder<List<Product>>(
           future: futureproduct,
           builder: (context, snapshot) {
             if (snapshot.hasData) {

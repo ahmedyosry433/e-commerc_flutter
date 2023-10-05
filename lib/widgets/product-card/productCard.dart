@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../core/global/theme/app_colors/app_color_light.dart';
 
 class ProductCard extends StatelessWidget {
-  final AllProduct product;
+  final Product product;
 
   const ProductCard({
     super.key,
