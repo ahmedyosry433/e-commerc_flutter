@@ -1,9 +1,6 @@
-// ignore_for_file: unnecessary_null_comparison
-
-import 'dart:convert';
+// ignore_for_file: unnecessary_null_comparison, list_remove_unrelated_type
 
 import 'package:flutter/material.dart';
-import 'package:flutter_welcome_login_singup_screens/core/utilites/shared_prefrences.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
 import 'package:collection/collection.dart';
 
@@ -12,19 +9,7 @@ import '../model/cart-item.dart';
 class CartProvider with ChangeNotifier {
   List<CartItem> cartItems = [];
 
-  late int countQuantity = 0;
   double totalCartPrice = 0;
-  incrementQuantity() {
-    countQuantity++;
-    notifyListeners();
-  }
-
-  decreaseQuantity() {
-    if (countQuantity > 1) {
-      countQuantity--;
-    }
-    notifyListeners();
-  }
 
   addToCart({required Product newProduct}) {
     final CartItem? existingItem = cartItems.firstWhereOrNull(
@@ -32,10 +17,9 @@ class CartProvider with ChangeNotifier {
     );
     if (existingItem != null) {
       existingItem.quantity++;
-      print(newProduct.price is int);
+
       existingItem.totalPrice =
           existingItem.quantity * double.parse(newProduct.price.toString());
-      // countQuantity = existingItem.quantity;
     } else {
       cartItems.add(CartItem(
           productId: newProduct.id,
@@ -43,32 +27,48 @@ class CartProvider with ChangeNotifier {
           totalPrice: newProduct.price,
           product: newProduct));
     }
-    //calcTotalCartPrice();
+    // calcTotalCartPrice();
     notifyListeners();
+    totalCartPrice += existingItem!.product.price;
   }
 
   removeCart({required Product newProduct}) {
     final CartItem? existingItem = cartItems.firstWhereOrNull(
       (item) => item.productId == newProduct.id,
     );
-    if (existingItem != null) {
-      if (existingItem.quantity == 1) {
-        existingItem.quantity--;
-        countQuantity = existingItem.quantity;
-        if (existingItem.quantity < 1) {
-          cartItems.remove(newProduct);
-        }
+    if (existingItem != null && existingItem.quantity >= 1) {
+      existingItem.quantity--;
+      existingItem.totalPrice =
+          existingItem.quantity * double.parse(newProduct.price.toString());
+      if (existingItem.quantity == 0) {
+        cartItems.remove(CartItem(
+            productId: newProduct.id,
+            title: newProduct.title,
+            totalPrice: newProduct.price,
+            product: newProduct));
+        print(
+            "_________________FROM IF____quantity:${existingItem.quantity}&&lenght: ${cartItems.length}&& cartitem:$cartItems");
       }
     } else {
-      cartItems.remove(newProduct);
+      cartItems.remove(CartItem(
+          productId: newProduct.id,
+          title: newProduct.title,
+          totalPrice: newProduct.price,
+          product: newProduct));
+      print(
+          "_____________FROM ELSE________quantity:${existingItem?.quantity}&&lenght: ${cartItems.length}&& cartitem:$cartItems");
     }
-    calcTotalCartPrice();
+    print(
+        "_____________________quantity:${existingItem?.quantity}&&lenght: ${cartItems.length}&& cartitem:$cartItems");
     notifyListeners();
+    totalCartPrice -= existingItem!.product.price;
+    // calcTotalCartPrice();
   }
 
   calcTotalCartPrice() {
     for (var i = 0; i < cartItems.length; i++) {
       totalCartPrice += cartItems[i].totalPrice;
+      print('________$totalCartPrice');
     }
   }
 

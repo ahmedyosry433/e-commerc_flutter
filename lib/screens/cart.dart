@@ -42,12 +42,14 @@ class ToCart extends StatelessWidget {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: Colors.white),
-                            child: const Text(
-                              "229.93",
-                              style: TextStyle(
-                                  backgroundColor: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
+                            child: Expanded(
+                              child: Text(
+                                "${double.parse((Provider.of<CartProvider>(context).totalCartPrice).toStringAsFixed(2))}",
+                                style: const TextStyle(
+                                    backgroundColor: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ]),

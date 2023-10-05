@@ -5,11 +5,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/constants/constants.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
-import 'package:flutter_welcome_login_singup_screens/provider/loginProvider.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import '../provider/cartProvider.dart';
 import '../widgets/componant/drawer.dart';
 import '../widgets/product-card/productCard.dart';
+import 'package:badges/badges.dart' as badges;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -39,7 +40,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   late Future<List<Product>> futureproduct;
-
   @override
   void initState() {
     super.initState();
@@ -48,6 +48,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool showBadge = Provider.of<CartProvider>(context).cartItems.isNotEmpty;
     return SafeArea(
       child: Scaffold(
         drawer: MyDrawer(),
@@ -55,36 +56,16 @@ class _HomePageState extends State<HomePage> {
           shadowColor: Colors.white,
           title: const Center(child: Text(Constants.ProjectName)),
           actions: [
-            IconButton(
-                onPressed: () => Navigator.pushNamed(context, '/cart'),
-                icon: const Icon(Icons.shopping_cart_outlined)),
-            IconButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('Log Out'),
-                      content: const Text('Do You Want To Logout ?'),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            await Provider.of<LoginProvider>(context,
-                                    listen: false)
-                                .signOut();
-                            // ignore: use_build_context_synchronously
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Yes'),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.logout_outlined)),
+            badges.Badge(
+              showBadge: showBadge,
+              position: badges.BadgePosition.topEnd(top: 5, end: 7),
+              badgeContent: Text(
+                  '${Provider.of<CartProvider>(context).cartItems.length}'),
+              child: IconButton(
+                  onPressed: () => Navigator.pushNamed(context, '/cart'),
+                  icon: const Icon(Icons.shopping_cart_outlined),
+                  iconSize: 35),
+            ),
           ],
         ),
         body: FutureBuilder<List<Product>>(

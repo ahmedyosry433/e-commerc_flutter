@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
 import 'package:flutter_welcome_login_singup_screens/model/cart-item.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +21,7 @@ class CartCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => productDetails(
-                        product: cartItem,
+                        product: cartItem.product,
                       )));
         },
         child: Card(
@@ -42,12 +41,12 @@ class CartCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(100),
                           color: Colors.white),
                       child: Image.network(
-                  cartItem.product.image,
-                  alignment: Alignment.center,
-                  fit: BoxFit.contain,
-                  width: 50,
-                  height: 50,
-                ),
+                        cartItem.product.image,
+                        alignment: Alignment.center,
+                        fit: BoxFit.contain,
+                        width: 50,
+                        height: 50,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(12.0),
@@ -59,9 +58,27 @@ class CartCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                           const SizedBox(height: 4),
-                           Text("Total: ${cartItem.totalPrice} "),
+                          Text(
+                              "Total: ${double.parse((cartItem.totalPrice).toStringAsFixed(2))} "),
                         ],
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.remove),
+                          onPressed: () =>
+                              Provider.of<CartProvider>(context, listen: false)
+                                  .removeCart(newProduct: cartItem.product),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () =>
+                              Provider.of<CartProvider>(context, listen: false)
+                                  .addToCart(newProduct: cartItem.product),
+                        ),
+                      ],
                     ),
                   ],
                 ),

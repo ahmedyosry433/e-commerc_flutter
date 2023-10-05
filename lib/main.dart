@@ -12,6 +12,7 @@ import 'screens/cart.dart';
 import 'provider/loginProvider.dart';
 import 'screens/splash.dart';
 import 'screens/login/login.dart';
+import 'widgets/componant/drawer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

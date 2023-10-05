@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/cartProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
 
 // ignore: camel_case_types
 class productDetails extends StatelessWidget {
@@ -11,7 +12,7 @@ class productDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String subtitle = product.title.substring(0, 12);
-
+    bool showBadge = Provider.of<CartProvider>(context).cartItems.isNotEmpty;
     return SafeArea(
       child: Scaffold(
           floatingActionButton: FloatingActionButton(
@@ -30,12 +31,19 @@ class productDetails extends StatelessWidget {
                   print('_____________$e');
                 }
               },
-              child: const Icon(Icons.shopping_cart)),
+              child: const Icon(Icons.add_shopping_cart)),
           appBar: AppBar(
             actions: [
-              IconButton(
-                  onPressed: () => Navigator.pushNamed(context, '/cart'),
-                  icon: const Icon(Icons.shopping_cart_outlined)),
+              badges.Badge(
+                showBadge: showBadge,
+                position: badges.BadgePosition.topEnd(top: 5, end: 7),
+                badgeContent: Text(
+                    '${Provider.of<CartProvider>(context).cartItems.length}'),
+                child: IconButton(
+                    onPressed: () => Navigator.pushNamed(context, '/cart'),
+                    icon: const Icon(Icons.shopping_cart_outlined),
+                    iconSize: 35),
+              ),
             ],
             title: Text(subtitle),
           ),
@@ -64,44 +72,6 @@ class productDetails extends StatelessWidget {
                     child: Text(
                       subtitle,
                       style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 30, 8, 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.remove),
-                          onPressed: () =>
-                              Provider.of<CartProvider>(context, listen: false)
-                                  .removeCart(newProduct: product),
-                        ),
-                        Container(
-                            alignment: Alignment.center,
-                            width: 110,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: AppColorLight.primaryColor,
-                              ),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Text(
-                              'Quantity ${Provider.of<CartProvider>(context).countQuantity}',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            )),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: () =>
-                              Provider.of<CartProvider>(context, listen: false)
-                                  .addToCart(newProduct: product),
-                        ),
-                        Text(
-                          "\$${product.price}",
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        )
-                      ],
                     ),
                   ),
                   const Divider(
