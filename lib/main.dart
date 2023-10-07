@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/theme_data/theme_data_light.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/signupProvider.dart';
-import 'package:flutter_welcome_login_singup_screens/screens/signup.dart';
+import 'package:flutter_welcome_login_singup_screens/screens/auth/profile.dart';
+import 'package:flutter_welcome_login_singup_screens/screens/auth/signup.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +12,7 @@ import 'provider/cartProvider.dart';
 import 'screens/cart.dart';
 import 'provider/loginProvider.dart';
 import 'screens/splash.dart';
-import 'screens/login/login.dart';
-import 'widgets/componant/drawer.dart';
+import 'screens/auth/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
           "/login": (context) => const Login(),
           "/": (context) => const Welcome(),
           "/cart": (context) => const ToCart(),
+          "/profile": (context) =>  Profile(),
         },
       ),
     );

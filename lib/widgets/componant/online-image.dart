@@ -1,0 +1,36 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class OnlineImage extends StatelessWidget {
+  const OnlineImage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      width: 100,
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: NetworkImage(
+                      "https://images.unsplash.com/photo-1458071103673-6a6e4c4a3413?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+                    ),
+                    fit: BoxFit.cover)),
+          ),
+          Container(
+            height: 20,
+            width: 20,
+            decoration: const BoxDecoration(
+                color: Colors.green, shape: BoxShape.circle),
+          )
+        ],
+      ),
+    );
+  }
+}

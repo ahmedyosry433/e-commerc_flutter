@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
+import 'package:flutter_welcome_login_singup_screens/widgets/componant/online-image.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
 import '../../provider/cartProvider.dart';
@@ -21,23 +22,25 @@ class MyDrawer extends StatelessWidget {
           UserAccountsDrawerHeader(
             accountEmail: Text('${user!.email}'),
             accountName: const Text(""),
-            currentAccountPicture: CircleAvatar(
-              child: ClipOval(
-                child: Image.network(
-                  'https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png',
-                  fit: BoxFit.cover,
-                  width: 90,
-                  height: 90,
-                ),
+            currentAccountPicture:const  OnlineImage(),
+            decoration: const BoxDecoration(
+              color: AppColorLight.appBarColor,
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                opacity: 0.7,
+                image: NetworkImage(
+                    'https://st2.depositphotos.com/2124221/46122/i/1600/depositphotos_461226038-stock-photo-abstract-geometric-background-poly-pattern.jpg'),
               ),
             ),
-            decoration: const BoxDecoration(
-                color: AppColorLight.appBarColor,
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    opacity: 0.7,
-                    image: NetworkImage(
-                        'https://st2.depositphotos.com/2124221/46122/i/1600/depositphotos_461226038-stock-photo-abstract-geometric-background-poly-pattern.jpg'))),
+          ),
+          ListTile(
+            leading: const Icon(Icons.person_2_outlined),
+            title: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/profile');
+              },
+              child: const Text('Profile'),
+            ),
           ),
           ListTile(
             trailing: badges.Badge(

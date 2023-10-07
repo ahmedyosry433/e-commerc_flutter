@@ -5,7 +5,7 @@ import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_color
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-import '../forms/signupForm.dart';
+import '../../forms/signupForm.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -15,7 +15,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  GlobalKey<FormState> formKey = GlobalKey();
+
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();

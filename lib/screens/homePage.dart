@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/constants/constants.dart';
+import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ import '../provider/cartProvider.dart';
 import '../widgets/componant/drawer.dart';
 import '../widgets/product-card/productCard.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -93,7 +95,12 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             }
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: LoadingAnimationWidget.staggeredDotsWave(
+                color: AppColorLight.primaryColor,
+                size: 200,
+              ),
+            );
           },
         ),
       ),
