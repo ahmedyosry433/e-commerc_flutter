@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/constants/constants.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart'
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../provider/cartProvider.dart';
+import '../provider/user-provider.dart';
 import '../widgets/componant/drawer.dart';
 import '../widgets/product-card/productCard.dart';
 import 'package:badges/badges.dart' as badges;
@@ -41,11 +43,18 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  getUserInfo() async {
+    User? user = FirebaseAuth.instance.currentUser;
+     await Provider.of<UserProvider>(context, listen: false)
+                      .getUserByUid(uid: user?.uid);
+  }
+
   late Future<List<Product>> futureproduct;
   @override
   void initState() {
     super.initState();
     futureproduct = getData();
+    getUserInfo();
   }
 
   @override
