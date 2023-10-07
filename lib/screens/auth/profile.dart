@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/forms/profile-form.dart';
-import 'package:flutter_welcome_login_singup_screens/widgets/componant/online-image.dart';
 
 class Profile extends StatelessWidget {
   Profile({super.key});

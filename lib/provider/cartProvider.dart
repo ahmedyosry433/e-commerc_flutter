@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison, list_remove_unrelated_type, avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
 import 'package:collection/collection.dart';
@@ -64,53 +66,15 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  savetoFirebase() {
-    //   String uid = userCredential.user!.uid;
-    // // Create a new User object with the provided data
-    // User FirebaseCartItem = {
-    // uid:uid,
-    // cartItems:cartItems
-    //
-    // }
+  Future<void> saveCartInFirebase({required User user}) async {
+    Product? newProduct;
+    final cartFire = FirebaseFirestore.instance.collection('carts');
 
-    // // Store the user's data in Firestore
-    // await FirebaseFirestore.instance.collection('cart').doc(uid).set(cart.toJson());
-  }
-
-  getFormFirebase() {
-    //   String uid = userCredential.user!.uid;
-    // // Create a new User object with the provided data
-    //  DocumentSnapshot userSnapshot =
-    //     await FirebaseFirestore.instance.collection('cart').doc(uid).get();
-
-    // if (userSnapshot.exists) {
-    //   // User data found in Firestore
-    //   return userSnapshot.data() as Map<String, dynamic>;
-    // } else {
-    //   // User data not found
-    //   return null;
-    // }
+    await cartFire.doc(user.uid).set({
+      'productId': newProduct!.id,
+      'title': newProduct.title,
+      'totalPrice': newProduct.price,
+      'product': newProduct
+    });
   }
 }
-
-// addToCart(AllProduct product) async {
-//     cartItems
-//         .add({'title': product.title, 'price': product.price, 'quantity': 1});
-//     // Convert rthe list to a JSON string
-//     final jsonString = jsonEncode(cartItems);
-//     SharedPrefrenceHelper().setValueForKey('CART', jsonString);
-
-//     notifyListeners();
-//   }
-
-//   getUserCart() async {
-//     String res = await SharedPrefrenceHelper().getValueForKey('CART');
-//     List items = jsonDecode(res) as List;
-//     // final productList = items.map((json) => Product.fromJson(json)).toList();
-
-//     // return productList;
-//   }
-
-//   isProductExistAtCart(newproduct) {
-
-//   }

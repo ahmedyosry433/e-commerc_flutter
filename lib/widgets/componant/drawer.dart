@@ -20,9 +20,9 @@ class MyDrawer extends StatelessWidget {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
+            accountName: Text("${user!.displayName}"),
             accountEmail: Text('${user!.email}'),
-            accountName: const Text(""),
-            currentAccountPicture:const  OnlineImage(),
+            currentAccountPicture: const OnlineImage(),
             decoration: const BoxDecoration(
               color: AppColorLight.appBarColor,
               image: DecorationImage(
