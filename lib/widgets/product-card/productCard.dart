@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/cartProvider.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/productDetalis.dart';
+import 'package:flutter_welcome_login_singup_screens/widgets/componant/like-button.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/global/theme/app_colors/app_color_light.dart';
@@ -58,10 +59,7 @@ class ProductCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(
-                      Icons.favorite_outline,
-                      color: Colors.red,
-                    ),
+                    const LikeButtonHeartIcon(),
                     Text(
                       subtitle,
                       style: const TextStyle(color: Colors.white),
