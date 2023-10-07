@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, list_remove_unrelated_type
+// ignore_for_file: unnecessary_null_comparison, list_remove_unrelated_type, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
@@ -27,9 +27,9 @@ class CartProvider with ChangeNotifier {
           totalPrice: newProduct.price,
           product: newProduct));
     }
-    // calcTotalCartPrice();
+    calcTotalCartPrice();
     notifyListeners();
-    totalCartPrice += existingItem!.product.price;
+    // totalCartPrice += existingItem!.product.price;
   }
 
   removeCart({required Product newProduct}) {
@@ -41,20 +41,12 @@ class CartProvider with ChangeNotifier {
       existingItem.totalPrice =
           existingItem.quantity * double.parse(newProduct.price.toString());
       if (existingItem.quantity == 0) {
-        cartItems.remove(CartItem(
-            productId: newProduct.id,
-            title: newProduct.title,
-            totalPrice: newProduct.price,
-            product: newProduct));
+        cartItems.removeWhere((item) => item.productId == newProduct.id);
         print(
             "_________________FROM IF____quantity:${existingItem.quantity}&&lenght: ${cartItems.length}&& cartitem:$cartItems");
       }
     } else {
-      cartItems.remove(CartItem(
-          productId: newProduct.id,
-          title: newProduct.title,
-          totalPrice: newProduct.price,
-          product: newProduct));
+      cartItems.removeWhere((item) => item.productId == newProduct.id);
       print(
           "_____________FROM ELSE________quantity:${existingItem?.quantity}&&lenght: ${cartItems.length}&& cartitem:$cartItems");
     }
@@ -67,7 +59,7 @@ class CartProvider with ChangeNotifier {
 
   calcTotalCartPrice() {
     for (var i = 0; i < cartItems.length; i++) {
-      totalCartPrice += cartItems[i].totalPrice;
+      totalCartPrice += cartItems[i].product.price;
       print('________$totalCartPrice');
     }
   }
