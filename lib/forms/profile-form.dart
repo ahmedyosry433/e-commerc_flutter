@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously
+// ignore_for_file: avoid_print, use_build_context_synchronously, file_names
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +25,8 @@ class _ProfileFormState extends State<ProfileForm> {
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
+    final userData =
+        Provider.of<UserProvider>(context, listen: false).userAlreadyexist;
     return Form(
       key: formKey,
       child: Column(
@@ -50,17 +52,17 @@ class _ProfileFormState extends State<ProfileForm> {
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(
-                      hintText: "First Name",
-                      enabledBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      hintText: "${userData['firstName']}",
+                      enabledBorder: const OutlineInputBorder(
                         borderSide:
                             BorderSide(color: AppColorLight.primaryColor),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide:
                             BorderSide(color: AppColorLight.secondColor),
                       ),
-                      errorBorder: OutlineInputBorder(
+                      errorBorder: const OutlineInputBorder(
                         borderSide:
                             BorderSide(color: AppColorLight.primaryColor),
                       ),
@@ -80,17 +82,17 @@ class _ProfileFormState extends State<ProfileForm> {
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(
-                        hintText: "Last Name",
-                        enabledBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                        hintText: "${userData['lastName']}",
+                        enabledBorder: const OutlineInputBorder(
                           borderSide:
                               BorderSide(color: AppColorLight.primaryColor),
                         ),
-                        errorBorder: OutlineInputBorder(
+                        errorBorder: const OutlineInputBorder(
                           borderSide:
                               BorderSide(color: AppColorLight.primaryColor),
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide:
                               BorderSide(color: AppColorLight.secondColor),
                         )),
@@ -130,17 +132,17 @@ class _ProfileFormState extends State<ProfileForm> {
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(
-                      hintText: "Phone",
-                      enabledBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      hintText: "${userData['phone']}",
+                      enabledBorder: const OutlineInputBorder(
                         borderSide:
                             BorderSide(color: AppColorLight.primaryColor),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide:
                             BorderSide(color: AppColorLight.secondColor),
                       ),
-                      errorBorder: OutlineInputBorder(
+                      errorBorder: const OutlineInputBorder(
                         borderSide:
                             BorderSide(color: AppColorLight.primaryColor),
                       ),
@@ -155,22 +157,21 @@ class _ProfileFormState extends State<ProfileForm> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please Enter Your Address';
-                      } else if (!isAlpha(value)) {
-                        return 'Only Letter Please';
+                      } else {
+                        return null;
                       }
-                      return null;
                     },
-                    decoration: const InputDecoration(
-                        hintText: "Address",
-                        enabledBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                        hintText: "${userData['address']}",
+                        enabledBorder: const OutlineInputBorder(
                           borderSide:
                               BorderSide(color: AppColorLight.primaryColor),
                         ),
-                        errorBorder: OutlineInputBorder(
+                        errorBorder: const OutlineInputBorder(
                           borderSide:
                               BorderSide(color: AppColorLight.primaryColor),
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide:
                               BorderSide(color: AppColorLight.secondColor),
                         )),
@@ -191,6 +192,10 @@ class _ProfileFormState extends State<ProfileForm> {
                           lastName: _lastNameController.text,
                           phone: _phoneController.text,
                           address: _addressController.text);
+                  Provider.of<UserProvider>(context, listen: false)
+                      .getUserByUid(uid: user?.uid);
+                  print(
+                      'EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE____${Provider.of<UserProvider>(context, listen: false).getUserByUid(uid: user?.uid)}');
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

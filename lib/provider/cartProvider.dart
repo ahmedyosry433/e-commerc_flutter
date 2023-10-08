@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, list_remove_unrelated_type, avoid_print
+// ignore_for_file: unnecessary_null_comparison, list_remove_unrelated_type, avoid_print, file_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

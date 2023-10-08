@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
 import '../../provider/cartProvider.dart';
 import '../../provider/loginProvider.dart';
+import '../../provider/user-provider.dart';
 
 class MyDrawer extends StatelessWidget {
   MyDrawer({super.key});
@@ -16,11 +17,14 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool showBadge = Provider.of<CartProvider>(context).cartItems.isNotEmpty;
+    final userData =
+        Provider.of<UserProvider>(context, listen: false).userAlreadyexist;
     return Drawer(
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text("${user!.displayName}"),
+            accountName:
+                Text("${userData['firstName']} ${userData['lastName']}"),
             accountEmail: Text('${user!.email}'),
             currentAccountPicture: const OnlineImage(),
             decoration: const BoxDecoration(

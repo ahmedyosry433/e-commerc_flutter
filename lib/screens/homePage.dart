@@ -45,8 +45,8 @@ class _HomePageState extends State<HomePage> {
 
   getUserInfo() async {
     User? user = FirebaseAuth.instance.currentUser;
-     await Provider.of<UserProvider>(context, listen: false)
-                      .getUserByUid(uid: user?.uid);
+    await Provider.of<UserProvider>(context, listen: false)
+        .getUserByUid(uid: user?.uid);
   }
 
   late Future<List<Product>> futureproduct;
@@ -59,6 +59,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final usersinfo = FirebaseAuth.instance.currentUser!.displayName;
+
     bool showBadge = Provider.of<CartProvider>(context).cartItems.isNotEmpty;
     return SafeArea(
       child: Scaffold(
@@ -98,6 +100,7 @@ class _HomePageState extends State<HomePage> {
                               child:
                                   ProductCard(product: snapshot.data![index])),
                         ),
+                        Text('$usersinfo')
                       ],
                     );
                   },

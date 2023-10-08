@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields, unused_element, unused_local_variable, no_leading_underscores_for_local_identifiers
+
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
