@@ -11,7 +11,7 @@ import '../model/cart-item.dart';
 class CartProvider with ChangeNotifier {
   List<CartItem> cartItems = [];
 
-  double totalCartPrice = 0;
+   num totalCartPrice = 0;
 
   addToCart({required Product newProduct}) {
     final CartItem? existingItem = cartItems.firstWhereOrNull(

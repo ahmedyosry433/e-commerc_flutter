@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserProvider with ChangeNotifier {
+  dynamic userAlreadyexist;
+
   Future<void> addUserInfoToFirebase(
       {required User user,
       required String firstName,
@@ -22,7 +24,6 @@ class UserProvider with ChangeNotifier {
     });
   }
 
-  late final userAlreadyexist;
   Future<Map<String, dynamic>?> getUserByUid({
     String? uid,
   }) async {

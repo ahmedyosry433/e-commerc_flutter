@@ -18,7 +18,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     bool showBadge = Provider.of<CartProvider>(context).cartItems.isNotEmpty;
     final userData =
-        Provider.of<UserProvider>(context, listen: false).userAlreadyexist;
+        Provider.of<UserProvider>(context, listen: true).userAlreadyexist;
     return Drawer(
       child: ListView(
         children: [

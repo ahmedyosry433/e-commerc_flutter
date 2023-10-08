@@ -11,7 +11,7 @@ class LikeButtonProvider with ChangeNotifier {
     );
     if (existLike == null) {
       likesItem.add(product);
-      isLike == true;
+      isLike = true;
     }
     notifyListeners();
   }
@@ -22,8 +22,15 @@ class LikeButtonProvider with ChangeNotifier {
     );
     if (existLike != null) {
       likesItem.removeWhere((item) => item.id == product.id);
-      isLike == false;
+      isLike = false;
     }
     notifyListeners();
+  }
+
+  bool isLiked(int id) {
+    return likesItem.firstWhereOrNull(
+          (item) => item.id == id,
+        ) !=
+        null;
   }
 }

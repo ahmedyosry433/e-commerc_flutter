@@ -21,11 +21,12 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String subtitle = product.title.substring(0, 12);
     final likeProvider =
-        Provider.of<LikeButtonProvider>(context, listen: false);
+        Provider.of<LikeButtonProvider>(context, listen: true);
     return Card(
       margin: const EdgeInsets.all(2.0),
       child: Container(
-        color: AppColorLight.cardColor,
+        color: Colors.white,
+        
         child: Stack(
           children: [
             // Product Image
@@ -62,7 +63,7 @@ class ProductCard extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        if (likeProvider.isLike) {
+                        if (likeProvider.isLiked(product.id)) {
                           likeProvider.removeLike(product);
                           print(
                               "_________________remove_________________${likeProvider.likesItem}");
@@ -78,7 +79,7 @@ class ProductCard extends StatelessWidget {
                       },
                       icon: Icon(
                         Icons.favorite_border,
-                        color: likeProvider.isLike ? Colors.red : Colors.white,
+                        color:likeProvider.isLiked(product.id)? Colors.red : Colors.white,
                       ),
                     ),
                     Text(

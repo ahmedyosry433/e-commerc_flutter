@@ -5,7 +5,7 @@ import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart'
 class CartItem {
   final productId;
   final title;
-  double totalPrice;
+  num totalPrice;
   int quantity;
   Product product;
 
