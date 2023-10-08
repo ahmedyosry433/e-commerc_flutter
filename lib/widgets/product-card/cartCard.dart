@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/global/theme/app_colors/app_color_light.dart';
 import '../../provider/cartProvider.dart';
-import '../../screens/productDetalis.dart';
+import '../../screens/productDetalis-page.dart';
 
 // ignore: must_be_immutable
 class CartCard extends StatelessWidget {

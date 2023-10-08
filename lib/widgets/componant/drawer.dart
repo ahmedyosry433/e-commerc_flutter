@@ -38,6 +38,15 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            leading: const Icon(Icons.favorite_border_sharp),
+            title: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/favorite');
+              },
+              child: const Text('Favorite'),
+            ),
+          ),
+          ListTile(
             leading: const Icon(Icons.person_2_outlined),
             title: InkWell(
               onTap: () {

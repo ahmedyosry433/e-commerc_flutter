@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/cartProvider.dart';
-import 'package:flutter_welcome_login_singup_screens/screens/productDetalis.dart';
-import 'package:flutter_welcome_login_singup_screens/widgets/componant/like-button.dart';
+import 'package:flutter_welcome_login_singup_screens/provider/like-provider.dart';
+import 'package:flutter_welcome_login_singup_screens/screens/productDetalis-page.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/global/theme/app_colors/app_color_light.dart';
@@ -20,6 +20,8 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String subtitle = product.title.substring(0, 12);
+    final likeProvider =
+        Provider.of<LikeButtonProvider>(context, listen: false);
     return Card(
       margin: const EdgeInsets.all(2.0),
       child: Container(
@@ -59,7 +61,27 @@ class ProductCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const LikeButtonHeartIcon(),
+                    IconButton(
+                      onPressed: () {
+                        if (likeProvider.isLike) {
+                          likeProvider.removeLike(product);
+                          print(
+                              "_________________remove_________________${likeProvider.likesItem}");
+                          print(
+                              "_________________remove_________________${likeProvider.isLike}");
+                        } else {
+                          likeProvider.addLike(product);
+                          print(
+                              "_________________ADD_________________${likeProvider.isLike}");
+                          print(
+                              "_______________add___________________${likeProvider.likesItem}");
+                        }
+                      },
+                      icon: Icon(
+                        Icons.favorite_border,
+                        color: likeProvider.isLike ? Colors.red : Colors.white,
+                      ),
+                    ),
                     Text(
                       subtitle,
                       style: const TextStyle(color: Colors.white),
