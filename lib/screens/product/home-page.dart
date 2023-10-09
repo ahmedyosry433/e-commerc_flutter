@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return GridView.count(
-                childAspectRatio: 0.9,
+                childAspectRatio: 0.8,
                 crossAxisSpacing: 7,
                 crossAxisCount: 2,
                 children: List.generate(
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         SizedBox(
                           width: 180,
-                          height: 200,
+                          height: 220,
                           child: ProductCard(product: snapshot.data![index]),
                         ),
                       ],

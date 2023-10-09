@@ -45,7 +45,7 @@ class ProductCard extends StatelessWidget {
               child: Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
-                elevation: 10,
+                elevation: 5,
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -96,6 +96,7 @@ class ProductCard extends StatelessWidget {
             ),
             Positioned(
               right: 40,
+              top: 7,
               height: 120,
               width: 100,
               child: Image.network(product.image),
