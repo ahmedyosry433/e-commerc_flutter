@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../core/global/theme/app_colors/app_color_light.dart';
-import '../provider/loginProvider.dart';
-import '../provider/signupProvider.dart';
+import '../provider/login-provider.dart';
+import '../provider/signup-provider.dart';
 
 // ignore: must_be_immutable
 class SignupForm extends StatelessWidget {

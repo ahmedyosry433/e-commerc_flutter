@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, must_be_immutable
+// ignore_for_file: use_build_context_synchronously, must_be_immutable, file_names
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +6,9 @@ import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_color
 import 'package:flutter_welcome_login_singup_screens/widgets/componant/online-image.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
-import '../../provider/cartProvider.dart';
-import '../../provider/loginProvider.dart';
+import '../../provider/cart-provider.dart';
+import '../../provider/favorite-provider.dart';
+import '../../provider/login-provider.dart';
 import '../../provider/user-provider.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -16,7 +17,10 @@ class MyDrawer extends StatelessWidget {
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
-    bool showBadge = Provider.of<CartProvider>(context).cartItems.isNotEmpty;
+    bool showBadgeCart =
+        Provider.of<CartProvider>(context).cartItems.isNotEmpty;
+    bool showBadgeLike =
+        Provider.of<FavoriteProvider>(context).likesItem.isNotEmpty;
     final userData =
         Provider.of<UserProvider>(context, listen: true).userAlreadyexist;
     return Drawer(
@@ -26,24 +30,17 @@ class MyDrawer extends StatelessWidget {
             accountName:
                 Text("${userData['firstName']} ${userData['lastName']}"),
             accountEmail: Text('${user!.email}'),
-            currentAccountPicture: const OnlineImage(),
+            currentAccountPicture: GestureDetector(
+                onTap: () => Navigator.pushNamed(context, '/profile'),
+                child: const OnlineImage()),
             decoration: const BoxDecoration(
               color: AppColorLight.appBarColor,
               image: DecorationImage(
                 fit: BoxFit.fill,
                 opacity: 0.7,
                 image: NetworkImage(
-                    'https://st2.depositphotos.com/2124221/46122/i/1600/depositphotos_461226038-stock-photo-abstract-geometric-background-poly-pattern.jpg'),
+                    'https://biteable.com/wp-content/uploads/2019/07/Facebook-Cover-Video-Guide.png'),
               ),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.favorite_border_sharp),
-            title: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, '/favorite');
-              },
-              child: const Text('Favorite'),
             ),
           ),
           ListTile(
@@ -52,22 +49,50 @@ class MyDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(context, '/profile');
               },
-              child: const Text('Profile'),
+              child: Text(
+                'Profile',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
             ),
           ),
           ListTile(
             trailing: badges.Badge(
               badgeStyle: const badges.BadgeStyle(padding: EdgeInsets.all(8)),
-              showBadge: showBadge,
+              showBadge: showBadgeLike,
               badgeContent: Text(
-                  '${Provider.of<CartProvider>(context).cartItems.length}'),
+                '${Provider.of<FavoriteProvider>(context).likesItem.length}',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+            leading: const Icon(Icons.favorite_border_sharp),
+            title: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/favorite');
+              },
+              child: Text(
+                "Favorite",
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ),
+          ),
+          ListTile(
+            trailing: badges.Badge(
+              badgeStyle: const badges.BadgeStyle(padding: EdgeInsets.all(8)),
+              showBadge: showBadgeCart,
+              badgeContent: Text(
+                '${Provider.of<CartProvider>(context).cartItems.length}',
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
             leading: const Icon(Icons.shopping_cart),
             title: InkWell(
               onTap: () {
                 Navigator.pushNamed(context, '/cart');
               },
-              child: const Text("Cart"),
+              child: Text(
+                "Cart",
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
             ),
           ),
           ListTile(
@@ -77,7 +102,10 @@ class MyDrawer extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('Log Out'),
+                    title: Text(
+                      'Log Out',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
                     content: const Text('Do You Want To Logout ?'),
                     actions: [
                       TextButton(

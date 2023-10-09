@@ -6,13 +6,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/constants/constants.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
-import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
+import 'package:flutter_welcome_login_singup_screens/model/product-model.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import '../provider/cartProvider.dart';
-import '../provider/user-provider.dart';
-import '../widgets/componant/drawer.dart';
-import '../widgets/product-card/productCard.dart';
+import '../../provider/cart-provider.dart';
+import '../../provider/user-provider.dart';
+import '../../widgets/componant/drawer.dart';
+import '../../widgets/product-card/product-card.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -59,24 +59,30 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final usersinfo = FirebaseAuth.instance.currentUser!.displayName;
-
     bool showBadge = Provider.of<CartProvider>(context).cartItems.isNotEmpty;
     return SafeArea(
       child: Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
-          shadowColor: Colors.white,
-          title: const Center(child: Text(Constants.ProjectName)),
+          elevation: 0,
+          title: const Center(
+              child: Text(
+            Constants.ProjectName,
+            style: TextStyle(color: Colors.black),
+          )),
           actions: [
             badges.Badge(
               showBadge: showBadge,
               position: badges.BadgePosition.topEnd(top: 5, end: 7),
               badgeContent: Text(
-                  '${Provider.of<CartProvider>(context).cartItems.length}'),
+                '${Provider.of<CartProvider>(context).cartItems.length}',
+                style: const TextStyle(color: Colors.white),
+              ),
               child: IconButton(
                   onPressed: () => Navigator.pushNamed(context, '/cart'),
-                  icon: const Icon(Icons.shopping_cart_outlined),
+                  icon: const Icon(
+                    Icons.shopping_cart_outlined,
+                  ),
                   iconSize: 35),
             ),
           ],
@@ -86,21 +92,20 @@ class _HomePageState extends State<HomePage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return GridView.count(
+                childAspectRatio: 0.9,
+                crossAxisSpacing: 7,
                 crossAxisCount: 2,
                 children: List.generate(
                   snapshot.data!.length,
                   (index) {
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SizedBox(
-                          width: 170,
+                          width: 180,
                           height: 200,
-                          child: Expanded(
-                              child:
-                                  ProductCard(product: snapshot.data![index])),
+                          child: ProductCard(product: snapshot.data![index]),
                         ),
-                        Text('$usersinfo')
                       ],
                     );
                   },
@@ -110,7 +115,7 @@ class _HomePageState extends State<HomePage> {
             return Center(
               child: LoadingAnimationWidget.staggeredDotsWave(
                 color: AppColorLight.primaryColor,
-                size: 200,
+                size: 150,
               ),
             );
           },

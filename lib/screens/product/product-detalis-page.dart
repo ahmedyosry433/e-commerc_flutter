@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
-import 'package:flutter_welcome_login_singup_screens/provider/cartProvider.dart';
+import 'package:flutter_welcome_login_singup_screens/provider/cart-provider.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
+
+import '../../provider/favorite-provider.dart';
 
 // ignore: camel_case_types
 class productDetails extends StatelessWidget {
@@ -15,6 +17,8 @@ class productDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     String subtitle = product.title.substring(0, 12);
     bool showBadge = Provider.of<CartProvider>(context).cartItems.isNotEmpty;
+    final likeProvider = Provider.of<FavoriteProvider>(context, listen: true);
+
     return SafeArea(
       child: Scaffold(
           floatingActionButton: FloatingActionButton(
@@ -40,7 +44,9 @@ class productDetails extends StatelessWidget {
                 showBadge: showBadge,
                 position: badges.BadgePosition.topEnd(top: 5, end: 7),
                 badgeContent: Text(
-                    '${Provider.of<CartProvider>(context).cartItems.length}'),
+                  '${Provider.of<CartProvider>(context).cartItems.length}',
+                  style: const TextStyle(color: Colors.white),
+                ),
                 child: IconButton(
                     onPressed: () => Navigator.pushNamed(context, '/cart'),
                     icon: const Icon(Icons.shopping_cart_outlined),
@@ -68,13 +74,47 @@ class productDetails extends StatelessWidget {
                       fit: BoxFit.contain,
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      subtitle,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          subtitle,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: IconButton(
+                          onPressed: () {
+                            if (likeProvider.isLiked(product.id)) {
+                              likeProvider.removeLike(product);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Favorite Removed')));
+                              print(
+                                  "_________________remove_________________${likeProvider.likesItem}");
+                            } else {
+                              likeProvider.addLike(product);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Favorite Added')));
+                              print(
+                                  "_______________add___________________${likeProvider.likesItem}");
+                            }
+                          },
+                          icon: Icon(
+                            Icons.favorite_sharp,
+                            size: 50,
+                            color: likeProvider.isLiked(product.id)
+                                ? Colors.red
+                                : AppColorLight.secondColor,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const Divider(
                     thickness: 0.4,

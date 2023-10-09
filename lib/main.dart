@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/theme_data/theme_data_light.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/user-provider.dart';
-import 'package:flutter_welcome_login_singup_screens/provider/signupProvider.dart';
-import 'package:flutter_welcome_login_singup_screens/screens/auth/profile.dart';
-import 'package:flutter_welcome_login_singup_screens/screens/auth/signup.dart';
-import 'package:flutter_welcome_login_singup_screens/screens/welcome-page.dart';
+import 'package:flutter_welcome_login_singup_screens/provider/signup-provider.dart';
+import 'package:flutter_welcome_login_singup_screens/screens/auth/profile-page.dart';
+import 'package:flutter_welcome_login_singup_screens/screens/auth/signup-page.dart';
+import 'package:flutter_welcome_login_singup_screens/screens/auth/welcome-page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 import 'forms/validation.dart';
-import 'provider/cartProvider.dart';
-import 'provider/like-provider.dart';
-import 'screens/cart-page.dart';
-import 'provider/loginProvider.dart';
-import 'screens/favorite-page.dart';
-import 'screens/splash-page.dart';
-import 'screens/auth/login.dart';
+import 'provider/cart-provider.dart';
+import 'provider/favorite-provider.dart';
+import 'screens/product/cart-page.dart';
+import 'provider/login-provider.dart';
+import 'screens/product/favorite-page.dart';
+import 'screens/auth/splash-page.dart';
+import 'screens/auth/login-page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
         ListenableProvider<SignupProvider>(
             create: (context) => SignupProvider()),
         ListenableProvider<Validation>(create: (context) => Validation()),
-        ListenableProvider<LikeButtonProvider>(create: (context) => LikeButtonProvider()),
+        ListenableProvider<FavoriteProvider>(
+            create: (context) => FavoriteProvider()),
       ],
       child: MaterialApp(
         theme: getThemeDataLight(),

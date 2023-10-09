@@ -1,7 +1,9 @@
+// ignore_for_file: file_names
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'homePage.dart';
-import 'welcome-page.dart';
+import 'package:flutter_welcome_login_singup_screens/screens/auth/login-page.dart';
+import '../product/home-page.dart';
 
 class Auth extends StatelessWidget {
   const Auth({super.key});
@@ -15,7 +17,7 @@ class Auth extends StatelessWidget {
           if (snapshot.hasData) {
             return const HomePage();
           } else {
-            return const Welcome();
+            return const Login();
           }
         },
       ),

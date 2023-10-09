@@ -1,12 +1,12 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_welcome_login_singup_screens/model/cart-item.dart';
+import 'package:flutter_welcome_login_singup_screens/model/cart-item-model.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/global/theme/app_colors/app_color_light.dart';
-import '../../provider/cartProvider.dart';
-import '../../screens/productDetalis-page.dart';
+import '../../provider/cart-provider.dart';
+import '../../screens/product/product-detalis-page.dart';
 
 // ignore: must_be_immutable
 class CartCard extends StatelessWidget {

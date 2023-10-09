@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,7 +7,7 @@ import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_color
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-import '../../forms/signupForm.dart';
+import '../../forms/signup-form.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});

@@ -3,10 +3,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_welcome_login_singup_screens/model/allProductModel.dart';
+import 'package:flutter_welcome_login_singup_screens/model/product-model.dart';
 import 'package:collection/collection.dart';
 
-import '../model/cart-item.dart';
+import '../model/cart-item-model.dart';
 
 class CartProvider with ChangeNotifier {
   List<CartItem> cartItems = [];

@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
 
 ThemeData getThemeDataLight() => ThemeData(
-      appBarTheme: const AppBarTheme(color: AppColorLight.appBarColor),
+      appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+              color: Colors.black, fontSize: 35, fontWeight: FontWeight.bold),
+          iconTheme: IconThemeData(color: Colors.black),
+          color: Colors.white),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor:
@@ -27,5 +31,4 @@ ThemeData getThemeDataLight() => ThemeData(
         bodyLarge: TextStyle(
             color: Colors.black, fontSize: 27, fontWeight: FontWeight.bold),
       ),
-      iconTheme: const IconThemeData(color: AppColorLight.iconColor),
     );
