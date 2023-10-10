@@ -11,7 +11,7 @@ class ToCart extends StatelessWidget {
   const ToCart({super.key});
   @override
   Widget build(BuildContext context) {
-    final providercart = Provider.of<CartProvider>(context);
+    final providercart = Provider.of<CartProvider>(context, listen: true);
     final productCartList = providercart.cartItems;
     return SafeArea(
         child: Scaffold(
@@ -63,7 +63,7 @@ class ToCart extends StatelessWidget {
                                             color: Colors.white),
                                         child: Expanded(
                                           child: Text(
-                                            "${double.parse((Provider.of<CartProvider>(context).totalCartPrice).toStringAsFixed(2))}",
+                                            "${double.parse((providercart.totalCartPrice).toStringAsFixed(2))}",
                                             style: const TextStyle(
                                                 backgroundColor: Colors.white,
                                                 fontSize: 15,
@@ -78,13 +78,9 @@ class ToCart extends StatelessWidget {
                         ),
                         Expanded(
                           child: ListView.builder(
-                              itemCount: Provider.of<CartProvider>(context)
-                                  .cartItems
-                                  .length,
+                              itemCount: productCartList.length,
                               itemBuilder: (context, index) {
-                                final cartItem =
-                                    Provider.of<CartProvider>(context)
-                                        .cartItems[index];
+                                final cartItem = providercart.cartItems[index];
 
                                 return Column(
                                   children: [
@@ -128,7 +124,8 @@ class ToCart extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   shape: BoxShape.rectangle,
-                                  color: const Color.fromARGB(255, 109, 69, 255)),
+                                  color:
+                                      const Color.fromARGB(255, 109, 69, 255)),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
