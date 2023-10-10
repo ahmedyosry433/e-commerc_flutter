@@ -6,6 +6,7 @@ import 'package:flutter_welcome_login_singup_screens/model/product-model.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/cart-provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../provider/favorite-provider.dart';
 import '../../screens/product/product-detalis-page.dart';
 
 class ProductCard extends StatelessWidget {
@@ -19,6 +20,8 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String subtitle = product.title.substring(0, 12);
+    final favoriteProvider =
+        Provider.of<FavoriteProvider>(context, listen: true);
     return GestureDetector(
         onTap: () {
           Navigator.push(
@@ -99,27 +102,6 @@ class ProductCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          // IconButton(
-                          // onPressed: () {
-                          //   try {
-                          //     Provider.of<CartProvider>(context,
-                          //             listen: false)
-                          //         .addToCart(newProduct: product);
-                          //     ScaffoldMessenger.of(context)
-                          //         .showSnackBar(const SnackBar(
-                          //       content: Text("Product added successfully"),
-                          //     ));
-                          //   } catch (e) {
-                          //     ScaffoldMessenger.of(context)
-                          //         .showSnackBar(const SnackBar(
-                          //       content: Text("Added Faild "),
-                          //     ));
-                          //     print('_____________$e');
-                          //   }
-                          // },
-                          //     icon: const Icon(
-                          //       Icons.add_shopping_cart_sharp,
-                          //     ))
                         ],
                       )
                     ],
@@ -134,6 +116,27 @@ class ProductCard extends StatelessWidget {
               width: 100,
               child: Image.network(product.image),
             ),
+            Positioned(
+                child: IconButton(
+              onPressed: () {
+                if (favoriteProvider.isLiked(product.id)) {
+                  favoriteProvider.removeLike(product);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Favorite Removed')));
+                } else {
+                  favoriteProvider.addLike(product);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Favorite Added')));
+                }
+              },
+              icon: Icon(
+                Icons.favorite_border,
+                size: 35,
+                color: favoriteProvider.isLiked(product.id)
+                    ? Colors.red
+                    : Colors.black,
+              ),
+            ))
           ],
         ));
   }

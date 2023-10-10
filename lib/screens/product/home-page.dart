@@ -59,7 +59,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool showBadge = Provider.of<CartProvider>(context).cartItems.isNotEmpty;
+    bool showBadge =
+        Provider.of<CartProvider>(context, listen: true).cartItems.isNotEmpty;
     return SafeArea(
       child: Scaffold(
         drawer: MyDrawer(),
@@ -74,8 +75,8 @@ class _HomePageState extends State<HomePage> {
             badges.Badge(
               showBadge: showBadge,
               position: badges.BadgePosition.topEnd(top: 5, end: 7),
-              badgeStyle:
-                 const  badges.BadgeStyle(badgeColor: AppColorLight.primaryColor),
+              badgeStyle: const badges.BadgeStyle(
+                  badgeColor: AppColorLight.primaryColor),
               badgeContent: Text(
                 '${Provider.of<CartProvider>(context).cartItems.length}',
                 style: const TextStyle(color: Colors.white),
