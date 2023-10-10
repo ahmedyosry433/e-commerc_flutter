@@ -130,8 +130,8 @@ class ProductCard extends StatelessWidget {
                 }
               },
               icon: Icon(
-                Icons.favorite_border,
-                size: 35,
+                Icons.favorite_outline,
+                size: 30,
                 color: favoriteProvider.isLiked(product.id)
                     ? Colors.red
                     : Colors.black,
