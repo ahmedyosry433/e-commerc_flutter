@@ -17,9 +17,12 @@ class OnlineImage extends StatelessWidget {
           Container(
             height: 100,
             width: 100,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.green,
+                ),
                 shape: BoxShape.circle,
-                image: DecorationImage(
+                image: const DecorationImage(
                     image: NetworkImage(
                       "https://images.unsplash.com/photo-1458071103673-6a6e4c4a3413?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
                     ),

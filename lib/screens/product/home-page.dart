@@ -74,6 +74,8 @@ class _HomePageState extends State<HomePage> {
             badges.Badge(
               showBadge: showBadge,
               position: badges.BadgePosition.topEnd(top: 5, end: 7),
+              badgeStyle:
+                 const  badges.BadgeStyle(badgeColor: AppColorLight.primaryColor),
               badgeContent: Text(
                 '${Provider.of<CartProvider>(context).cartItems.length}',
                 style: const TextStyle(color: Colors.white),
@@ -93,7 +95,6 @@ class _HomePageState extends State<HomePage> {
             if (snapshot.hasData) {
               return GridView.count(
                 childAspectRatio: 0.8,
-                crossAxisSpacing: 7,
                 crossAxisCount: 2,
                 children: List.generate(
                   snapshot.data!.length,
@@ -102,8 +103,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SizedBox(
-                          width: 180,
-                          height: 220,
+                          width: 185,
                           child: ProductCard(product: snapshot.data![index]),
                         ),
                       ],
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
             }
             return Center(
               child: LoadingAnimationWidget.staggeredDotsWave(
-                color: AppColorLight.primaryColor,
+                color: Colors.black,
                 size: 150,
               ),
             );

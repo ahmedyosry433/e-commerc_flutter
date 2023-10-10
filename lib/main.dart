@@ -6,6 +6,7 @@ import 'package:flutter_welcome_login_singup_screens/screens/auth/profile-page.d
 import 'package:flutter_welcome_login_singup_screens/screens/auth/signup-page.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/auth/welcome-page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_welcome_login_singup_screens/widgets/componant/categories.dart';
 import 'package:provider/provider.dart';
 
 import 'forms/validation.dart';
@@ -41,15 +42,16 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: getThemeDataLight(),
-        initialRoute: "/auth",
+        initialRoute: "/splash",
         routes: {
-          "/auth": (context) => const Auth(),
+          "/splash": (context) => const Splash(),
           "/signup": (context) => const Signup(),
           "/login": (context) => const Login(),
           "/": (context) => const Welcome(),
           "/cart": (context) => const ToCart(),
           "/profile": (context) => Profile(),
           "/favorite": (context) => const Favorite(),
+          "/category": (context) => const Categories(),
         },
       ),
     );

@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
 import 'package:flutter_welcome_login_singup_screens/model/product-model.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/cart-provider.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +45,7 @@ class ProductCard extends StatelessWidget {
                   ]),
               child: Card(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
+                    borderRadius: BorderRadius.circular(15)),
                 elevation: 5,
                 child: Padding(
                   padding:
@@ -53,10 +54,10 @@ class ProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        subtitle,
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 16),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Text(subtitle,
+                            style: Theme.of(context).textTheme.labelLarge),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,29 +65,61 @@ class ProductCard extends StatelessWidget {
                           Text(
                             r'$' '${product.price}',
                             style: const TextStyle(
-                                color: Colors.black, fontSize: 16),
+                                color: AppColorLight.primaryColor,
+                                fontSize: 16),
                           ),
-                          IconButton(
-                              onPressed: () {
-                                try {
-                                  Provider.of<CartProvider>(context,
-                                          listen: false)
-                                      .addToCart(newProduct: product);
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                    content: Text("Product added successfully"),
-                                  ));
-                                } catch (e) {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                    content: Text("Added Faild "),
-                                  ));
-                                  print('_____________$e');
-                                }
-                              },
-                              icon: const Icon(
-                                Icons.shopping_cart,
-                              ))
+                          GestureDetector(
+                            onTap: () {
+                              try {
+                                Provider.of<CartProvider>(context,
+                                        listen: false)
+                                    .addToCart(newProduct: product);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text("Product added successfully"),
+                                ));
+                              } catch (e) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text("Added Faild "),
+                                ));
+                                print('_____________$e');
+                              }
+                            },
+                            child: Container(
+                              width: 35,
+                              height: 35,
+                              decoration: const BoxDecoration(
+                                color: AppColorLight.iconColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.add_shopping_cart_sharp,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          // IconButton(
+                          // onPressed: () {
+                          //   try {
+                          //     Provider.of<CartProvider>(context,
+                          //             listen: false)
+                          //         .addToCart(newProduct: product);
+                          //     ScaffoldMessenger.of(context)
+                          //         .showSnackBar(const SnackBar(
+                          //       content: Text("Product added successfully"),
+                          //     ));
+                          //   } catch (e) {
+                          //     ScaffoldMessenger.of(context)
+                          //         .showSnackBar(const SnackBar(
+                          //       content: Text("Added Faild "),
+                          //     ));
+                          //     print('_____________$e');
+                          //   }
+                          // },
+                          //     icon: const Icon(
+                          //       Icons.add_shopping_cart_sharp,
+                          //     ))
                         ],
                       )
                     ],
@@ -96,7 +129,7 @@ class ProductCard extends StatelessWidget {
             ),
             Positioned(
               right: 40,
-              top: 7,
+              top: 22,
               height: 120,
               width: 100,
               child: Image.network(product.image),

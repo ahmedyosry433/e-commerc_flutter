@@ -43,6 +43,8 @@ class productDetails extends StatelessWidget {
               badges.Badge(
                 showBadge: showBadge,
                 position: badges.BadgePosition.topEnd(top: 5, end: 7),
+                badgeStyle: const badges.BadgeStyle(
+                    badgeColor: AppColorLight.primaryColor),
                 badgeContent: Text(
                   '${Provider.of<CartProvider>(context).cartItems.length}',
                   style: const TextStyle(color: Colors.white),

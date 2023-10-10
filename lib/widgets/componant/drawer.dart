@@ -44,20 +44,23 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            titleTextStyle: const TextStyle(fontSize: 20, color: Colors.black),
             leading: const Icon(Icons.person_2_outlined),
             title: InkWell(
               onTap: () {
                 Navigator.pushNamed(context, '/profile');
               },
-              child: Text(
+              child: const Text(
                 'Profile',
-                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
           ),
           ListTile(
+            titleTextStyle: const TextStyle(fontSize: 20, color: Colors.black),
             trailing: badges.Badge(
-              badgeStyle: const badges.BadgeStyle(padding: EdgeInsets.all(8)),
+              badgeStyle: const badges.BadgeStyle(
+                  padding: EdgeInsets.all(8),
+                  badgeColor: AppColorLight.primaryColor),
               showBadge: showBadgeLike,
               badgeContent: Text(
                 '${Provider.of<FavoriteProvider>(context).likesItem.length}',
@@ -69,34 +72,48 @@ class MyDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(context, '/favorite');
               },
-              child: Text(
+              child: const Text(
                 "Favorite",
-                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
           ),
           ListTile(
             trailing: badges.Badge(
-              badgeStyle: const badges.BadgeStyle(padding: EdgeInsets.all(8)),
+              badgeStyle: const badges.BadgeStyle(
+                  padding: EdgeInsets.all(8),
+                  badgeColor: AppColorLight.primaryColor),
               showBadge: showBadgeCart,
               badgeContent: Text(
                 '${Provider.of<CartProvider>(context).cartItems.length}',
                 style: const TextStyle(color: Colors.white),
               ),
             ),
-            leading: const Icon(Icons.shopping_cart),
+            leading: const Icon(Icons.shopping_cart_outlined),
+            titleTextStyle: const TextStyle(fontSize: 20, color: Colors.black),
             title: InkWell(
               onTap: () {
                 Navigator.pushNamed(context, '/cart');
               },
-              child: Text(
+              child: const Text(
                 "Cart",
-                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ),
+          ),
+          ListTile(
+            titleTextStyle: const TextStyle(fontSize: 20, color: Colors.black),
+            leading: const Icon(Icons.category_outlined),
+            title: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/category');
+              },
+              child: const Text(
+                'Categories',
               ),
             ),
           ),
           ListTile(
             leading: const Icon(Icons.logout_sharp),
+            titleTextStyle: const TextStyle(fontSize: 20, color: Colors.black),
             title: InkWell(
               onTap: () {
                 showDialog(
@@ -125,7 +142,12 @@ class MyDrawer extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Logout'),
+              child: const Text(
+                'Logout',
+                style: TextStyle(
+                    color: AppColorLight.primaryColor,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           )
         ],
