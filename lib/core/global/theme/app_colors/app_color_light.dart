@@ -11,4 +11,6 @@ class AppColorLight {
 
   static const appBarColor = Color.fromRGBO(164, 126, 211, 1);
   static const cardColor = Color.fromRGBO(241, 233, 250, 0.774);
+  static const whiteColor = Colors.white;
+  static const shadowColor = Colors.grey;
 }

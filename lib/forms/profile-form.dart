@@ -29,159 +29,164 @@ class _ProfileFormState extends State<ProfileForm> {
         Provider.of<UserProvider>(context, listen: false).userAlreadyexist;
     return Form(
       key: formKey,
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: const Color.fromARGB(255, 243, 241, 247),
-                border: Border.all(color: AppColorLight.secondColor)),
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                  child: TextFormField(
-                    controller: _firstNameController,
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter First Name';
-                      } else if (!isAlpha(value)) {
-                        return 'Only Letters Please';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: "${userData['firstName']}",
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: AppColorLight.primaryColor),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: AppColorLight.secondColor),
-                      ),
-                      errorBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: AppColorLight.primaryColor),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  child: TextFormField(
-                    controller: _lastNameController,
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Last Name';
-                      } else if (!isAlpha(value)) {
-                        return 'Only Letters Please';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        hintText: "${userData['lastName']}",
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColorLight.primaryColor),
-                        ),
-                        errorBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColorLight.primaryColor),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColorLight.secondColor),
-                        )),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      hintText: "${user!.email}",
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: AppColorLight.primaryColor),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: AppColorLight.primaryColor),
-                      ),
-                      errorBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: AppColorLight.primaryColor),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  child: TextFormField(
-                    controller: _phoneController,
-                    keyboardType: TextInputType.phone,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Your Phone';
-                      } else if (isAlpha(value)) {
-                        return 'Only Number Please';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: "${userData['phone']}",
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: AppColorLight.primaryColor),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: AppColorLight.secondColor),
-                      ),
-                      errorBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: AppColorLight.primaryColor),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  child: TextFormField(
-                    controller: _addressController,
-                    keyboardType: TextInputType.streetAddress,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Your Address';
-                      } else {
-                        return null;
-                      }
-                    },
-                    decoration: InputDecoration(
-                        hintText: "${userData['address']}",
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColorLight.primaryColor),
-                        ),
-                        errorBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColorLight.primaryColor),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColorLight.secondColor),
-                        )),
-                  ),
-                ),
-                const SizedBox(height: 15),
-              ],
-            ),
+      child: Column(children: [
+        Container(
+          margin: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(
+                  color: AppColorLight.shadowColor,
+                  blurRadius: 10,
+                  offset: Offset(3, 3))
+            ],
+            borderRadius: BorderRadius.circular(15),
+            color: AppColorLight.whiteColor,
           ),
-          ElevatedButton(
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                child: TextFormField(
+                  controller: _firstNameController,
+                  keyboardType: TextInputType.name,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter First Name';
+                    } else if (!isAlpha(value)) {
+                      return 'Only Letters Please';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: "${userData['firstName']}",
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppColorLight.primaryColor, width: 0.5),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColorLight.secondColor),
+                    ),
+                    errorBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppColorLight.primaryColor, width: 0.5),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                child: TextFormField(
+                  controller: _lastNameController,
+                  keyboardType: TextInputType.name,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Last Name';
+                    } else if (!isAlpha(value)) {
+                      return 'Only Letters Please';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                      hintText: "${userData['lastName']}",
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: AppColorLight.primaryColor, width: 0.5),
+                      ),
+                      errorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: AppColorLight.primaryColor, width: 0.5),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColorLight.secondColor),
+                      )),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                child: TextFormField(
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    hintText: "${user!.email}",
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppColorLight.primaryColor, width: 0.5),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppColorLight.primaryColor, width: 0.5),
+                    ),
+                    errorBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppColorLight.primaryColor, width: 0.5),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                child: TextFormField(
+                  controller: _phoneController,
+                  keyboardType: TextInputType.phone,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Your Phone';
+                    } else if (isAlpha(value)) {
+                      return 'Only Number Please';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: "${userData['phone']}",
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppColorLight.primaryColor, width: 0.5),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColorLight.secondColor),
+                    ),
+                    errorBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppColorLight.primaryColor, width: 0.5),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                child: TextFormField(
+                  controller: _addressController,
+                  keyboardType: TextInputType.streetAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Your Address';
+                    } else {
+                      return null;
+                    }
+                  },
+                  decoration: InputDecoration(
+                      hintText: "${userData['address']}",
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: AppColorLight.primaryColor, width: 0.5),
+                      ),
+                      errorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: AppColorLight.primaryColor, width: 0.5),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColorLight.secondColor),
+                      )),
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: ElevatedButton(
             onPressed: () async {
               try {
                 if (formKey.currentState!.validate()) {
@@ -217,8 +222,8 @@ class _ProfileFormState extends State<ProfileForm> {
               "Update",
             ),
           ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }
