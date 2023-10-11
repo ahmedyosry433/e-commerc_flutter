@@ -147,14 +147,25 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Column(
                           children: [
-                            const Text("Don't Have Any Account ?"),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Don't Have Any Account ?"),
+                                TextButton(
+                                    onPressed: () =>
+                                        Navigator.pushNamed(context, "/signup"),
+                                    child: const Text("Sign up")),
+                              ],
+                            ),
                             TextButton(
-                                onPressed: () =>
-                                    Navigator.pushNamed(context, "/signup"),
-                                child: const Text("Sign up"))
+                                clipBehavior: Clip.none,
+                                onPressed: () async {
+                                  await providerSub.resetPassword(
+                                      email: _userNameController.text);
+                                },
+                                child: const Text("Forgot Password?")),
                           ],
                         ),
                       ],
