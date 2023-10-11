@@ -58,130 +58,142 @@ class productDetails extends StatelessWidget {
             title: Text(subtitle),
           ),
           body: SingleChildScrollView(
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    padding: const EdgeInsets.all(25),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: AppColorLight.cardColor),
-                    width: double.infinity,
-                    child: Image.network(
-                      product.image,
-                      width: 200,
-                      height: 200,
-                      fit: BoxFit.contain,
+            child: Stack(children: [
+              SizedBox(
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(25),
+                      decoration: BoxDecoration(
+                          boxShadow: const [
+                            BoxShadow(
+                                color: AppColorLight.shadowColor,
+                                blurRadius: 5,
+                                offset: Offset(0, 3))
+                          ],
+                          borderRadius: BorderRadius.circular(20),
+                          color: AppColorLight.whiteColor),
+                      width: double.infinity,
+                      child: Stack(
+                          alignment: AlignmentDirectional.center,
+                          children: [
+                            Image.network(
+                              product.image,
+                              width: 200,
+                              height: 200,
+                              fit: BoxFit.contain,
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                height: 47,
+                                width: 49,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColorLight.iconColor),
+                                child: IconButton(
+                                  onPressed: () {
+                                    if (likeProvider.isLiked(product.id)) {
+                                      likeProvider.removeLike(product);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content:
+                                                  Text('Favorite Removed')));
+                                    } else {
+                                      likeProvider.addLike(product);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text('Favorite Added')));
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.favorite_sharp,
+                                    size: 35,
+                                    color: likeProvider.isLiked(product.id)
+                                        ? Colors.red
+                                        : AppColorLight.whiteColor,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ]),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          subtitle,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        subtitle,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: IconButton(
-                          onPressed: () {
-                            if (likeProvider.isLiked(product.id)) {
-                              likeProvider.removeLike(product);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Favorite Removed')));
-                              print(
-                                  "_________________remove_________________${likeProvider.likesItem}");
-                            } else {
-                              likeProvider.addLike(product);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Favorite Added')));
-                              print(
-                                  "_______________add___________________${likeProvider.likesItem}");
-                            }
-                          },
-                          icon: Icon(
-                            Icons.favorite_sharp,
-                            size: 50,
-                            color: likeProvider.isLiked(product.id)
-                                ? Colors.red
-                                : AppColorLight.secondColor,
+                    ),
+                    const Divider(
+                      thickness: 0.4,
+                      color: AppColorLight.dividerAndBorderColor,
+                      indent: 8,
+                      endIndent: 8,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(8, 15, 8, 15),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Unit Price : ${product.price}\$",
+                        textAlign: TextAlign.end,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ),
+                    const Divider(
+                      thickness: 0.4,
+                      color: AppColorLight.dividerAndBorderColor,
+                      indent: 8,
+                      endIndent: 8,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(8, 15, 8, 15),
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Unit",
+                            textAlign: TextAlign.end,
+                            style: Theme.of(context).textTheme.titleSmall,
                           ),
-                        ),
+                          Text(
+                            "GM",
+                            textAlign: TextAlign.end,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  const Divider(
-                    thickness: 0.4,
-                    color: AppColorLight.dividerAndBorderColor,
-                    indent: 8,
-                    endIndent: 8,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(8, 15, 8, 15),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Unit Price : ${product.price}\$",
-                      textAlign: TextAlign.end,
-                      style: Theme.of(context).textTheme.titleSmall,
                     ),
-                  ),
-                  const Divider(
-                    thickness: 0.4,
-                    color: AppColorLight.dividerAndBorderColor,
-                    indent: 8,
-                    endIndent: 8,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(8, 15, 8, 15),
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Unit",
-                          textAlign: TextAlign.end,
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        Text(
-                          "GM",
-                          textAlign: TextAlign.end,
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                      ],
+                    const Divider(
+                      thickness: 0.4,
+                      color: AppColorLight.dividerAndBorderColor,
+                      indent: 8,
+                      endIndent: 8,
                     ),
-                  ),
-                  const Divider(
-                    thickness: 0.4,
-                    color: AppColorLight.dividerAndBorderColor,
-                    indent: 8,
-                    endIndent: 8,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(8, 15, 8, 15),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Product Specification",
-                      textAlign: TextAlign.end,
-                      style: Theme.of(context).textTheme.titleSmall,
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(8, 15, 8, 15),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Product Specification",
+                        textAlign: TextAlign.end,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ),
-                  ),
-                  const Divider(
-                    thickness: 0.4,
-                    color: AppColorLight.dividerAndBorderColor,
-                    indent: 8,
-                    endIndent: 8,
-                  ),
-                ],
+                    const Divider(
+                      thickness: 0.4,
+                      color: AppColorLight.dividerAndBorderColor,
+                      indent: 8,
+                      endIndent: 8,
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ]),
           )),
     );
   }

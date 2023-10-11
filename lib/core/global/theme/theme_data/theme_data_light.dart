@@ -4,7 +4,7 @@ import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_color
 ThemeData getThemeDataLight() => ThemeData(
       appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
-              color: Colors.black, fontSize: 35, fontWeight: FontWeight.bold),
+              color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
           iconTheme: IconThemeData(color: Colors.black),
           color: Colors.white),
       elevatedButtonTheme: ElevatedButtonThemeData(

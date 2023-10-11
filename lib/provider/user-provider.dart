@@ -37,15 +37,15 @@ class UserProvider with ChangeNotifier {
         userAlreadyexist = userSnapshot.data() as Map<String, dynamic>;
       } else {
         // User data not found
-        userAlreadyexist = null;
+        userAlreadyexist = {};
       }
     } catch (e) {
       print('---------->ERROR ------');
       // Handle database errors
       print('Error fetching user data: $e');
-      userAlreadyexist = null;
+      userAlreadyexist = {};
     }
     notifyListeners();
-    return null;
+    return {};
   }
 }
