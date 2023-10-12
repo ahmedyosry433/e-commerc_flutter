@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously, file_names, unnecessary_null_comparison
+// ignore_for_file: avoid_print, use_build_context_synchronously, file_names, unnecessary_null_comparison, prefer_if_null_operators
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -59,8 +59,8 @@ class _ProfileFormState extends State<ProfileForm> {
                   },
                   decoration: InputDecoration(
                     hintText: "${userData['firstName']}" == null
-                        ? "${userData['firstName']}"
-                        : "First Name",
+                        ? "First Name"
+                        : "${userData['firstName']}",
                     enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                           color: AppColorLight.primaryColor, width: 0.5),
@@ -89,7 +89,7 @@ class _ProfileFormState extends State<ProfileForm> {
                     return null;
                   },
                   decoration: InputDecoration(
-                      hintText: "${userData['lastName']}" == null
+                      hintText: "${userData['lastName']}" != null
                           ? "${userData['lastName']}"
                           : "last Name",
                       enabledBorder: const OutlineInputBorder(
@@ -141,7 +141,7 @@ class _ProfileFormState extends State<ProfileForm> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    hintText: "${userData['phone']}" == null
+                    hintText: "${userData['phone']}" != null
                         ? "${userData['phone']}"
                         : "Phone",
                     enabledBorder: const OutlineInputBorder(
@@ -171,7 +171,7 @@ class _ProfileFormState extends State<ProfileForm> {
                     }
                   },
                   decoration: InputDecoration(
-                      hintText: "${userData['address']}" == null
+                      hintText: "${userData['address']}" != null
                           ? "${userData['address']}"
                           : "Address",
                       enabledBorder: const OutlineInputBorder(
