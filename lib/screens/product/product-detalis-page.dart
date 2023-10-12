@@ -38,25 +38,6 @@ class productDetails extends StatelessWidget {
                 }
               },
               child: const Icon(Icons.add_shopping_cart)),
-          appBar: AppBar(
-            actions: [
-              badges.Badge(
-                showBadge: showBadge,
-                position: badges.BadgePosition.topEnd(top: 5, end: 7),
-                badgeStyle: const badges.BadgeStyle(
-                    badgeColor: AppColorLight.primaryColor),
-                badgeContent: Text(
-                  '${Provider.of<CartProvider>(context).cartItems.length}',
-                  style: const TextStyle(color: Colors.white),
-                ),
-                child: IconButton(
-                    onPressed: () => Navigator.pushNamed(context, '/cart'),
-                    icon: const Icon(Icons.shopping_cart_outlined),
-                    iconSize: 35),
-              ),
-            ],
-            title: Text(subtitle),
-          ),
           body: SingleChildScrollView(
             child: Stack(children: [
               SizedBox(
@@ -64,8 +45,8 @@ class productDetails extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      margin: const EdgeInsets.all(8),
-                      padding: const EdgeInsets.all(25),
+                      margin: const EdgeInsets.fromLTRB(20, 70, 20, 30),
+                      padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
                       decoration: BoxDecoration(
                           boxShadow: const [
                             BoxShadow(
@@ -73,7 +54,7 @@ class productDetails extends StatelessWidget {
                                 blurRadius: 5,
                                 offset: Offset(0, 3))
                           ],
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(25),
                           color: AppColorLight.whiteColor),
                       width: double.infinity,
                       child: Stack(
@@ -89,11 +70,11 @@ class productDetails extends StatelessWidget {
                               bottom: 0,
                               right: 0,
                               child: Container(
-                                height: 47,
-                                width: 49,
-                                decoration: const BoxDecoration(
+                                decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: AppColorLight.iconColor),
+                                    color: likeProvider.isLiked(product.id)
+                                        ? AppColorLight.whiteColor
+                                        : AppColorLight.iconColor),
                                 child: IconButton(
                                   onPressed: () {
                                     if (likeProvider.isLiked(product.id)) {
@@ -124,9 +105,13 @@ class productDetails extends StatelessWidget {
                     Container(
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        subtitle,
-                        style: Theme.of(context).textTheme.bodyLarge,
+                      child: Row(
+                        children: [
+                          Text(
+                            subtitle,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ],
                       ),
                     ),
                     const Divider(
@@ -136,12 +121,23 @@ class productDetails extends StatelessWidget {
                       endIndent: 8,
                     ),
                     Container(
-                      padding: const EdgeInsets.fromLTRB(8, 15, 8, 15),
+                      padding: const EdgeInsets.fromLTRB(6, 15, 8, 15),
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Unit Price : ${product.price}\$",
-                        textAlign: TextAlign.end,
-                        style: Theme.of(context).textTheme.titleSmall,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Unit Price",
+                            textAlign: TextAlign.end,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          Text(
+                            " ${product.price}\$",
+                            style: const TextStyle(
+                                color: AppColorLight.primaryColor,
+                                fontSize: 16),
+                          )
+                        ],
                       ),
                     ),
                     const Divider(
@@ -161,10 +157,12 @@ class productDetails extends StatelessWidget {
                             textAlign: TextAlign.end,
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
-                          Text(
+                          const Text(
                             "GM",
                             textAlign: TextAlign.end,
-                            style: Theme.of(context).textTheme.titleSmall,
+                            style: TextStyle(
+                                color: AppColorLight.primaryColor,
+                                fontSize: 16),
                           ),
                         ],
                       ),
@@ -193,6 +191,28 @@ class productDetails extends StatelessWidget {
                   ],
                 ),
               ),
+              Positioned(
+                  child: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(Icons.arrow_back),
+              )),
+              Positioned(
+                right: 0,
+                child: badges.Badge(
+                  showBadge: showBadge,
+                  position: badges.BadgePosition.topEnd(top: 5, end: 7),
+                  badgeStyle: const badges.BadgeStyle(
+                      badgeColor: AppColorLight.primaryColor),
+                  badgeContent: Text(
+                    '${Provider.of<CartProvider>(context).cartItems.length}',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  child: IconButton(
+                      onPressed: () => Navigator.pushNamed(context, '/cart'),
+                      icon: const Icon(Icons.shopping_cart_outlined),
+                      iconSize: 35),
+                ),
+              )
             ]),
           )),
     );
