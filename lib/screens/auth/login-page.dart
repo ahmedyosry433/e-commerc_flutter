@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final providerSub = Provider.of<LoginProvider>(context);
+    final providerSub = Provider.of<LoginProvider>(context, listen: true);
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -98,53 +98,71 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () async {
-                            try {
-                              await Provider.of<LoginProvider>(context,
-                                      listen: false)
-                                  .signIn(
-                                      userNameController: _userNameController,
-                                      passwordController: _passwordController);
-                              Navigator.popAndPushNamed(context, '/splash');
-                            } catch (e) {
-                              // Handle specific FirebaseAuthExceptions
-                              if (e is FirebaseAuthException) {
-                                //user Not Found
-                                if (e.code == 'user-not-found') {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text('User not found')));
-                                  //Wrong Password
-                                } else if (e.code == 'wrong-password') {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text('Wrong password')));
-                                } else if (e.code == 'invalid-email') {
-                                  // Invalid email format
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content:
-                                              Text('Invalid email format')));
-                                } else {
-                                  // Handle other FirebaseAuthExceptions or display a generic error
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content: Text(
-                                              'Authentication error: ${e.code}')));
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () async {
+                                if (await providerSub
+                                    .biometricAuthentication()) {
+                                  Navigator.popAndPushNamed(context, '/home');
                                 }
-                              } else {
-                                // Handle other exceptions (not related to Firebase Authentication)
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(
-                                            'An unexpected error occurred: $e')));
-                              }
-                            }
-                          },
-                          child: const Text(
-                            "LOGIN",
-                          ),
+                              },
+                              icon: const Icon(
+                                Icons.fingerprint,
+                                size: 35,
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                try {
+                                  await Provider.of<LoginProvider>(context,
+                                          listen: false)
+                                      .signIn(
+                                          userNameController:
+                                              _userNameController,
+                                          passwordController:
+                                              _passwordController);
+                                  Navigator.popAndPushNamed(context, '/splash');
+                                } catch (e) {
+                                  // Handle specific FirebaseAuthExceptions
+                                  if (e is FirebaseAuthException) {
+                                    //user Not Found
+                                    if (e.code == 'user-not-found') {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text('User not found')));
+                                      //Wrong Password
+                                    } else if (e.code == 'wrong-password') {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text('Wrong password')));
+                                    } else if (e.code == 'invalid-email') {
+                                      // Invalid email format
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Invalid email format')));
+                                    } else {
+                                      // Handle other FirebaseAuthExceptions or display a generic error
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  'Authentication error: ${e.code}')));
+                                    }
+                                  } else {
+                                    // Handle other exceptions (not related to Firebase Authentication)
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                'An unexpected error occurred: $e')));
+                                  }
+                                }
+                              },
+                              child: const Text(
+                                "LOGIN",
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 10),
                         Column(

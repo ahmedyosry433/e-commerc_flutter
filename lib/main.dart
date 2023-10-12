@@ -17,6 +17,7 @@ import 'provider/login-provider.dart';
 import 'screens/product/favorite-page.dart';
 import 'screens/auth/splash-page.dart';
 import 'screens/auth/login-page.dart';
+import 'screens/product/home-page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
           "/profile": (context) => Profile(),
           "/favorite": (context) => const Favorite(),
           "/category": (context) => const Categories(),
+          "/home": (context) => const HomePage(),
         },
       ),
     );
