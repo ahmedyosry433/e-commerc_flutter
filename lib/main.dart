@@ -6,7 +6,6 @@ import 'package:flutter_welcome_login_singup_screens/screens/auth/profile-page.d
 import 'package:flutter_welcome_login_singup_screens/screens/auth/signup-page.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/auth/welcome-page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_welcome_login_singup_screens/widgets/componant/categories.dart';
 import 'package:provider/provider.dart';
 
 import 'forms/validation.dart';
@@ -14,6 +13,7 @@ import 'provider/cart-provider.dart';
 import 'provider/favorite-provider.dart';
 import 'screens/product/cart-page.dart';
 import 'provider/login-provider.dart';
+import 'screens/product/category-page.dart';
 import 'screens/product/favorite-page.dart';
 import 'screens/auth/splash-page.dart';
 import 'screens/auth/login-page.dart';
@@ -52,8 +52,8 @@ class MyApp extends StatelessWidget {
           "/cart": (context) => const ToCart(),
           "/profile": (context) => Profile(),
           "/favorite": (context) => const Favorite(),
-          "/category": (context) => const Categories(),
           "/home": (context) => const HomePage(),
+          "/categories": (context) => CategoryPage(),
         },
       ),
     );

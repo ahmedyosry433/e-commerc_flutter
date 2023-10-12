@@ -1,13 +1,13 @@
 // ignore_for_file: file_names
 
-import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/constants/constants.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
+import 'package:flutter_welcome_login_singup_screens/core/server/category-apis.dart';
+import 'package:flutter_welcome_login_singup_screens/core/server/product-apis.dart';
 import 'package:flutter_welcome_login_singup_screens/model/product-model.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_welcome_login_singup_screens/widgets/componant/categories.dart';
 import 'package:provider/provider.dart';
 import '../../provider/cart-provider.dart';
 import '../../provider/user-provider.dart';
@@ -24,37 +24,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<List<Product>> getData() async {
-    String url = Constants.ApiUrl;
-
-    var jsonData = await http.get(Uri.parse(url));
-
-    if (jsonData.statusCode == 200) {
-      List data = jsonDecode(jsonData.body);
-      List<Product> productList = [];
-
-      for (var a in data) {
-        Product allProductObject = Product.fromJson(a);
-        productList.add(allProductObject);
-      }
-      return productList;
-    } else {
-      throw Exception("Error");
-    }
-  }
-
   getUserInfo() async {
     User? user = FirebaseAuth.instance.currentUser;
     await Provider.of<UserProvider>(context, listen: false)
         .getUserByUid(uid: user?.uid);
   }
 
-  late Future<List<Product>> futureproduct;
+  static late Future<List<Product>> futureproduct;
   @override
   void initState() {
     super.initState();
-    futureproduct = getData();
+    futureproduct = ProductApis.getData();
     getUserInfo();
+    CategoryApis.getCategories();
   }
 
   @override
@@ -90,37 +72,36 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        body: FutureBuilder<List<Product>>(
-          future: futureproduct,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return GridView.count(
-                childAspectRatio: 0.8,
-                crossAxisCount: 2,
-                children: List.generate(
-                  snapshot.data!.length,
-                  (index) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          width: 185,
-                          child: ProductCard(product: snapshot.data![index]),
-                        ),
-                      ],
-                    );
-                  },
+        body: Column(children: [
+          const Categories(),
+          FutureBuilder<List<Product>>(
+            future: futureproduct,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Expanded(
+                  child: GridView.builder(
+                    itemCount: snapshot.data!.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.8,
+                    ),
+                    itemBuilder: (context, index) =>
+                        ProductCard(product: snapshot.data![index]),
+                  ),
+                );
+              }
+              return Center(
+                child: LoadingAnimationWidget.discreteCircle(
+                  thirdRingColor: AppColorLight.secondColor,
+                  secondRingColor: AppColorLight.iconColor,
+                  color: AppColorLight.primaryColor,
+                  size: 100,
                 ),
               );
-            }
-            return Center(
-              child: LoadingAnimationWidget.staggeredDotsWave(
-                color: Colors.black,
-                size: 150,
-              ),
-            );
-          },
-        ),
+            },
+          ),
+        ]),
       ),
     );
   }

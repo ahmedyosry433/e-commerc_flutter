@@ -69,37 +69,41 @@ class productDetails extends StatelessWidget {
                             Positioned(
                               bottom: 0,
                               right: 0,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: likeProvider.isLiked(product.id)
-                                        ? AppColorLight.whiteColor
-                                        : AppColorLight.iconColor),
-                                child: IconButton(
-                                  onPressed: () {
-                                    if (likeProvider.isLiked(product.id)) {
-                                      likeProvider.removeLike(product);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content:
-                                                  Text('Favorite Removed')));
-                                    } else {
-                                      likeProvider.addLike(product);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content: Text('Favorite Added')));
-                                    }
-                                  },
-                                  icon: Icon(
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (likeProvider.isLiked(product.id)) {
+                                    likeProvider.removeLike(product);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Favorite Removed')));
+                                  } else {
+                                    likeProvider.addLike(product);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Favorite Added')));
+                                  }
+                                },
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadiusDirectional.circular(50),
+                                      color: likeProvider.isLiked(product.id)
+                                          ? AppColorLight.whiteColor
+                                          : Colors.red),
+                                  child: Icon(
                                     Icons.favorite_sharp,
-                                    size: 35,
+                                    size: likeProvider.isLiked(product.id)
+                                        ? 36
+                                        : 30,
                                     color: likeProvider.isLiked(product.id)
                                         ? Colors.red
                                         : AppColorLight.whiteColor,
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ]),
                     ),
                     Container(

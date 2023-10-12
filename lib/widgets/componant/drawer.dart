@@ -104,7 +104,7 @@ class MyDrawer extends StatelessWidget {
             leading: const Icon(Icons.category_outlined),
             title: InkWell(
               onTap: () {
-                Navigator.pushNamed(context, '/category');
+                Navigator.pushNamed(context, '/categories');
               },
               child: const Text(
                 'Categories',
