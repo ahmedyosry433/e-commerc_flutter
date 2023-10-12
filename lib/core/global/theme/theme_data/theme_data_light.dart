@@ -26,8 +26,8 @@ ThemeData getThemeDataLight() => ThemeData(
           color: AppColorLight.titleTextLargeLight,
         ),
         titleMedium: TextStyle(
-            color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-        titleSmall: TextStyle(color: Colors.black, fontSize: 15),
+            color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+        titleSmall: TextStyle(color: Colors.black, fontSize: 20),
         bodyLarge: TextStyle(
             color: Colors.black, fontSize: 27, fontWeight: FontWeight.bold),
       ),
