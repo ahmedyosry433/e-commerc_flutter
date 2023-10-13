@@ -1,16 +1,27 @@
-# flutter_welcome_login_singup_screens
+# eCommerce Mobile App
 
-A new Flutter project.
+This Flutter project is an eCommerce mobile application that allows users to browse products by categories, add items to their cart, and complete purchases. It also features user authentication and registration using Firebase for a seamless shopping experience.
 
-## Getting Started
+## Technologies Used
 
-This project is a starting point for a Flutter application.
+- **Flutter**: A cross-platform app development framework.
+- **Dart**: The programming language for Flutter.
+- **Flutter Provider**: App state Management.
 
-A few resources to get you started if this is your first Flutter project:
+- **Firebase Authentication**: For user authentication and registration.
+- **Firebase Realtime Database and Firestore**: For storing and managing product data and user-related information.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Key Features
+
+- User-friendly UI with product categories and dynamic product listings.
+- Integration with Firebase for secure user authentication and data management.
+- Shopping cart system with add-to-cart and remove-from-cart functionality.
+- User registration and login functionality for a personalized experience.
+
+## Project Setup
+
+If you'd like to set up this project on your local development environment, follow these steps:
+
+1. Clone the repository:
+2. flutter run
