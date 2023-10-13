@@ -30,6 +30,10 @@ class _HomePageState extends State<HomePage> {
         .getUserByUid(uid: user?.uid);
   }
 
+  onChangeCategory(String name) async  {
+   futureproduct = ProductApis.getProductWithCategory(name);
+  }
+
   static late Future<List<Product>> futureproduct;
   @override
   void initState() {
@@ -73,7 +77,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: Column(children: [
-          const Categories(),
+           Categories(onChangeCategory: onChangeCategory),
           FutureBuilder<List<Product>>(
             future: futureproduct,
             builder: (context, snapshot) {

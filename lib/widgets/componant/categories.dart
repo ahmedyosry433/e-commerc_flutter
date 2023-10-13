@@ -6,7 +6,9 @@ import 'package:flutter_welcome_login_singup_screens/core/server/category-apis.d
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Categories extends StatefulWidget {
-  const Categories({super.key});
+  Function onChangeCategory;
+
+  Categories({super.key, required this.onChangeCategory});
 
   @override
   State<Categories> createState() => _CategoriesState();
@@ -31,7 +33,10 @@ class _CategoriesState extends State<Categories> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
+                          widget
+                              .onChangeCategory(snapshot.data![index]);
                           setState(() {
+                            print(snapshot.data![index]);
                             selectedIndex = index;
                           });
                         },
