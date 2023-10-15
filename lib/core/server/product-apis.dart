@@ -27,22 +27,5 @@ class ProductApis {
     }
   }
 
-  static Future<List<Product>> getProductWithCategory(String category) async {
-    String url = Constants.ApiUrl + Constants.category + category;
-    print(1);
-    var jsonData = await http.get(Uri.parse(url));
-    print(2);
-    if (jsonData.statusCode == 200) {
-      List data = jsonDecode(jsonData.body);
-      List<Product> productList = [];
-    print(3);
-      for (var a in data) {
-        Product allProductObject = Product.fromJson(a);
-        productList.add(allProductObject);
-      }
-      return productList;
-    } else {
-      throw Exception("Error");
-    }
-  }
+  
 }

@@ -51,7 +51,6 @@ class Profile extends StatelessWidget {
                           await Provider.of<UserProvider>(context,
                                   listen: false)
                               .pickImageProfile(ImageSource.gallery);
-                          print("_________________________picker");
                         },
                         child: const Icon(Icons.add_a_photo),
                       ))

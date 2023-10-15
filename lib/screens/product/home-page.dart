@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -33,17 +33,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    getCategories();
     getProduct();
     getUserInfo();
+
     super.initState();
   }
 
   getProduct() async {
     //start loading =true
-   List<Product>  products = await ProductApis.getData();
-    //end loding = false 
+    List<Product> products = await ProductApis.getData();
+    //end loding = false
     context.read<ProductListProvider>().setProducts(products);
-    
+  }
+
+  getCategories() async {
+    List category = await CategoryApis.getCategories();
+    context.read<ProductListProvider>().setcategoies(category);
   }
 
   @override
@@ -82,9 +88,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        body: Column(children: [
-          const Categories(),
-          productList.isNotEmpty ? Expanded(
+        body: productList.isNotEmpty
+            ? Column(children: [
+                const Categories(),
+                Expanded(
                   child: GridView.builder(
                     itemCount: productList.length,
                     gridDelegate:
@@ -95,15 +102,16 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) =>
                         ProductCard(product: productList[index]),
                   ),
-                ) :Center(
+                )
+              ])
+            : Center(
                 child: LoadingAnimationWidget.discreteCircle(
                   thirdRingColor: AppColorLight.secondColor,
                   secondRingColor: AppColorLight.iconColor,
                   color: AppColorLight.primaryColor,
                   size: 100,
                 ),
-              ) 
-        ]),
+              ),
       ),
     );
   }
