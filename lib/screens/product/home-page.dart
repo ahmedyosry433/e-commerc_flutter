@@ -10,6 +10,7 @@ import 'package:flutter_welcome_login_singup_screens/model/product-model.dart';
 import 'package:flutter_welcome_login_singup_screens/widgets/componant/categories.dart';
 import 'package:provider/provider.dart';
 import '../../provider/cart-provider.dart';
+import '../../provider/product-provider.dart';
 import '../../provider/user-provider.dart';
 import '../../widgets/componant/drawer.dart';
 import '../../widgets/product-card/product-card.dart';
@@ -30,23 +31,28 @@ class _HomePageState extends State<HomePage> {
         .getUserByUid(uid: user?.uid);
   }
 
-  onChangeCategory(String name) async {
-    futureproduct = ProductApis.getProductWithCategory(name);
-  }
-
-  static late Future<List<Product>> futureproduct;
   @override
   void initState() {
-    CategoryApis.getCategories();
-    futureproduct = ProductApis.getData();
+    getProduct();
     getUserInfo();
     super.initState();
+  }
+
+  getProduct() async {
+    //start loading =true
+   List<Product>  products = await ProductApis.getData();
+    //end loding = false 
+    context.read<ProductListProvider>().setProducts(products);
+    
   }
 
   @override
   Widget build(BuildContext context) {
     bool showBadge =
         Provider.of<CartProvider>(context, listen: true).cartItems.isNotEmpty;
+    ProductListProvider productListProvider =
+        Provider.of<ProductListProvider>(context);
+    List<Product> productList = productListProvider.products;
     return SafeArea(
       child: Scaffold(
         drawer: MyDrawer(),
@@ -77,34 +83,26 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: Column(children: [
-          Categories(onChangeCategory: onChangeCategory),
-          FutureBuilder<List<Product>>(
-            future: futureproduct,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Expanded(
+          const Categories(),
+          productList.isNotEmpty ? Expanded(
                   child: GridView.builder(
-                    itemCount: snapshot.data!.length,
+                    itemCount: productList.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 0.8,
                     ),
                     itemBuilder: (context, index) =>
-                        ProductCard(product: snapshot.data![index]),
+                        ProductCard(product: productList[index]),
                   ),
-                );
-              }
-              return Center(
+                ) :Center(
                 child: LoadingAnimationWidget.discreteCircle(
                   thirdRingColor: AppColorLight.secondColor,
                   secondRingColor: AppColorLight.iconColor,
                   color: AppColorLight.primaryColor,
                   size: 100,
                 ),
-              );
-            },
-          ),
+              ) 
         ]),
       ),
     );

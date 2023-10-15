@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/theme_data/theme_data_light.dart';
+import 'package:flutter_welcome_login_singup_screens/provider/product-provider.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/user-provider.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/signup-provider.dart';
 import 'package:flutter_welcome_login_singup_screens/screens/auth/profile-page.dart';
@@ -40,6 +41,8 @@ class MyApp extends StatelessWidget {
         ListenableProvider<Validation>(create: (context) => Validation()),
         ListenableProvider<FavoriteProvider>(
             create: (context) => FavoriteProvider()),
+        ListenableProvider<ProductListProvider>(create: (context) => ProductListProvider()),
+
       ],
       child: MaterialApp(
         theme: getThemeDataLight(),

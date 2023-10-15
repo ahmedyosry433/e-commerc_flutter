@@ -3,12 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
 import 'package:flutter_welcome_login_singup_screens/core/server/category-apis.dart';
+import 'package:flutter_welcome_login_singup_screens/core/server/product-apis.dart';
+import 'package:flutter_welcome_login_singup_screens/model/product-model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/product-provider.dart';
 
 class Categories extends StatefulWidget {
-  Function onChangeCategory;
 
-  Categories({super.key, required this.onChangeCategory});
+  const Categories({super.key});
 
   @override
   State<Categories> createState() => _CategoriesState();
@@ -19,6 +23,8 @@ class _CategoriesState extends State<Categories> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    ProductListProvider productListProvider =
+        Provider.of<ProductListProvider>(context, listen: false);
     return FutureBuilder<List>(
         future: categoriesList,
         builder: (context, snapshot) {
@@ -32,12 +38,14 @@ class _CategoriesState extends State<Categories> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () {
-                          widget.onChangeCategory(snapshot.data![index]);
+                        onTap: () async {
                           setState(() {
-                            print(snapshot.data![index]);
                             selectedIndex = index;
                           });
+                          List<Product> products =
+                              await ProductApis.getProductWithCategory(
+                                  snapshot.data![index]);
+                          productListProvider.setProducts(products);
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
