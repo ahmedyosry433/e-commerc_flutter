@@ -40,11 +40,17 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  bool isLoad = false;
   getProduct() async {
+    if (!isLoad) {
+      List<Product> products = await ProductApis.getData();
+      context.read<ProductListProvider>().setProducts(products);
+      setState(() {
+        isLoad = true;
+      });
+    } 
     //start loading =true
-    List<Product> products = await ProductApis.getData();
     //end loding = false
-    context.read<ProductListProvider>().setProducts(products);
   }
 
   getCategories() async {
@@ -88,7 +94,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        body: productList.isNotEmpty
+        body: productList.isNotEmpty || isLoad
             ? Column(children: [
                 const Categories(),
                 Expanded(

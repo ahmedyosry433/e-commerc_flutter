@@ -41,8 +41,8 @@ class MyApp extends StatelessWidget {
         ListenableProvider<Validation>(create: (context) => Validation()),
         ListenableProvider<FavoriteProvider>(
             create: (context) => FavoriteProvider()),
-        ListenableProvider<ProductListProvider>(create: (context) => ProductListProvider()),
-
+        ListenableProvider<ProductListProvider>(
+            create: (context) => ProductListProvider()),
       ],
       child: MaterialApp(
         theme: getThemeDataLight(),
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
           "/profile": (context) => Profile(),
           "/favorite": (context) => const Favorite(),
           "/home": (context) => const HomePage(),
-          "/categories": (context) => CategoryPage(),
+          "/categories": (context) => const CategoryPage(),
         },
       ),
     );

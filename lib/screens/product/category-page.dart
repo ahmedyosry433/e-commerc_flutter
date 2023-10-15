@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, file_names
+// ignore_for_file: must_be_immutable, file_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/provider/product-provider.dart';
@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 
 import '../../core/server/category-apis.dart';
 import '../../model/product-model.dart';
+import 'category-details.dart';
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({super.key});
 
- 
   @override
   Widget build(BuildContext context) {
     List categoriesList = Provider.of<ProductListProvider>(context).getcategory;
@@ -43,6 +43,11 @@ class CategoryPage extends StatelessWidget {
                             await CategoryApis.getProductWithCategory(
                                 categoriesList[index]);
                         productListProvider.setProducts(products);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => CategoryDetails(
+                                    productlist: products, index: index)));
                       },
                       child: Text('${categoriesList[index]}',
                           style: Theme.of(context).textTheme.titleMedium),

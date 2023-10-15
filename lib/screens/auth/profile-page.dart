@@ -37,8 +37,10 @@ class Profile extends StatelessWidget {
                 Stack(children: [
                   CircleAvatar(
                     radius: 50,
-                    foregroundImage: const NetworkImage(
-                        'https://upload.wikimedia.org/wikipedia/commons/9/9a/No_avatar.png'),
+                    foregroundImage: imagefrompicker == null
+                        ? NetworkImage(
+                            'https://upload.wikimedia.org/wikipedia/commons/9/9a/No_avatar.png')
+                        : null,
                     backgroundImage: imagefrompicker != null
                         ? FileImage(imagefrompicker)
                         : null,
