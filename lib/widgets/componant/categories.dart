@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_colors/app_color_light.dart';
@@ -33,8 +33,7 @@ class _CategoriesState extends State<Categories> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          widget
-                              .onChangeCategory(snapshot.data![index]);
+                          widget.onChangeCategory(snapshot.data![index]);
                           setState(() {
                             print(snapshot.data![index]);
                             selectedIndex = index;
@@ -74,7 +73,7 @@ class _CategoriesState extends State<Categories> {
           return Center(
             child: LoadingAnimationWidget.staggeredDotsWave(
               color: AppColorLight.blackColor,
-              size: 0,
+              size: 50,
             ),
           );
         });

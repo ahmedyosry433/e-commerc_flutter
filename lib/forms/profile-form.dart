@@ -25,6 +25,7 @@ class _ProfileFormState extends State<ProfileForm> {
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
+    final imagefrompicker = Provider.of<UserProvider>(context).imageProfile;
     final userData =
         Provider.of<UserProvider>(context, listen: false).userAlreadyexist;
     return Form(
@@ -200,11 +201,13 @@ class _ProfileFormState extends State<ProfileForm> {
                 if (formKey.currentState!.validate()) {
                   await Provider.of<UserProvider>(context, listen: false)
                       .addUserInfoToFirebase(
-                          user: user!,
-                          firstName: _firstNameController.text,
-                          lastName: _lastNameController.text,
-                          phone: _phoneController.text,
-                          address: _addressController.text);
+                    user: user!,
+                    firstName: _firstNameController.text,
+                    lastName: _lastNameController.text,
+                    phone: _phoneController.text,
+                    address: _addressController.text,
+                    image: imagefrompicker!,
+                  );
                   Provider.of<UserProvider>(context, listen: false)
                       .getUserByUid(uid: user?.uid);
                   print(
