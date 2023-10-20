@@ -31,7 +31,7 @@ class CartProvider with ChangeNotifier {
     }
     calcTotalCartPrice();
     print(1);
-
+    saveCartItemInFirebase();
     notifyListeners();
     // totalCartPrice += existingItem!.product.price;
   }
@@ -103,7 +103,7 @@ class CartProvider with ChangeNotifier {
         .collection('cart');
     QuerySnapshot cartSnapshot = await userCartRef.get();
     List<CartItem> firebaseCartItems = cartSnapshot.docs.map((doc) {
-      return CartItem (  
+      return CartItem(
         productId: doc['productId'],
         title: doc['title'],
         totalPrice: doc['totalPrice'],
