@@ -3,7 +3,7 @@
 class Product {
   final id;
   final title;
-  final  price;
+  final price;
   final description;
   final category;
   final image;
@@ -30,5 +30,15 @@ class Product {
       image: json["image"],
       rating: json["rating"],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'price': price,
+      'category': quantity,
+      'rating': rating,
+    };
   }
 }

@@ -15,4 +15,15 @@ class CartItem {
       required this.totalPrice,
       required this.product,
       this.quantity = 1});
+
+
+      Map<String, dynamic> toJson() {
+    return {
+      'productId': productId,
+      'title': title,
+      'totalPrice': totalPrice,
+      'quantity': quantity,
+      'product': product.toJson(), // Assuming Product class has a toJson method
+    };
+  }
 }

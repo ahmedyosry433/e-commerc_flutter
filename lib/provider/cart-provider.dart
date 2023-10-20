@@ -11,9 +11,9 @@ import '../model/cart-item-model.dart';
 class CartProvider with ChangeNotifier {
   List<CartItem> cartItems = [];
 
-   num totalCartPrice = 0;
+  num totalCartPrice = 0;
 
-  addToCart({required Product newProduct}) {
+  addToCart({required Product newProduct}) async {
     final CartItem? existingItem = cartItems.firstWhereOrNull(
       (item) => item.productId == newProduct.id,
     );
@@ -30,6 +30,8 @@ class CartProvider with ChangeNotifier {
           product: newProduct));
     }
     calcTotalCartPrice();
+    print(1);
+
     notifyListeners();
     // totalCartPrice += existingItem!.product.price;
   }
@@ -66,15 +68,74 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  Future<void> saveCartInFirebase({required User user}) async {
-    Product? newProduct;
-    final cartFire = FirebaseFirestore.instance.collection('carts');
+  Future<void> saveCartItemInFirebase() async {
+    final user = FirebaseAuth.instance.currentUser;
+    await clearUserCart(user?.uid);
+    final userCartRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user?.uid)
+        .collection('cart');
+    for (var item in cartItems) {
+      await userCartRef.add({
+        'productId': item.productId,
+        'title': item.title,
+        'totalPrice': item.totalPrice,
+        'quantity': item.quantity,
+        'product': {
+          'title': item.title,
+          'id': '12',
+          'price': '12',
+          'description': 'sss',
+          'category': '22',
+          'image': '',
+          'rating': '12',
+          'quantity': '0',
+        }
+      });
+    }
+    await retrieveUserCart(user?.uid);
+  }
 
-    await cartFire.doc(user.uid).set({
-      'productId': newProduct!.id,
-      'title': newProduct.title,
-      'totalPrice': newProduct.price,
-      'product': newProduct
-    });
+  Future<void> retrieveUserCart(String? userUid) async {
+    CollectionReference userCartRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userUid)
+        .collection('cart');
+    QuerySnapshot cartSnapshot = await userCartRef.get();
+    List<CartItem> firebaseCartItems = cartSnapshot.docs.map((doc) {
+      return CartItem (  
+        productId: doc['productId'],
+        title: doc['title'],
+        totalPrice: doc['totalPrice'],
+        quantity: doc['quantity'],
+        // product: Product.fromJson(doc['product']),
+        product: Product(
+          id: 'dd',
+          price: 23,
+          title: 're',
+          description: '',
+          quantity: 3,
+          category: 'ee',
+          image: 'null',
+          rating: 12,
+        ),
+      );
+    }).toList();
+    cartItems = firebaseCartItems;
+  }
+
+  Future<void> clearUserCart(String? userUid) async {
+    CollectionReference userCartRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userUid)
+        .collection('cart');
+    WriteBatch batch = FirebaseFirestore.instance.batch();
+
+    QuerySnapshot cartSnapshot = await userCartRef.get();
+    for (QueryDocumentSnapshot doc in cartSnapshot.docs) {
+      batch.delete(doc.reference);
+    }
+
+    await batch.commit();
   }
 }
