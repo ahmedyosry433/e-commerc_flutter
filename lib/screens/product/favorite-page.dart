@@ -11,7 +11,7 @@ class Favorite extends StatelessWidget {
   const Favorite({super.key});
   @override
   Widget build(BuildContext context) {
-    final favoiteList = Provider.of<FavoriteProvider>(context).likesItem;
+    final favoiteList = Provider.of<FavoriteProvider>(context).favoriteItems;
     bool showBadge = favoiteList.isNotEmpty;
     return SafeArea(
       child: Scaffold(

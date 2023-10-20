@@ -20,7 +20,7 @@ class MyDrawer extends StatelessWidget {
     bool showBadgeCart =
         Provider.of<CartProvider>(context).cartItems.isNotEmpty;
     bool showBadgeLike =
-        Provider.of<FavoriteProvider>(context).likesItem.isNotEmpty;
+        Provider.of<FavoriteProvider>(context).favoriteItems.isNotEmpty;
     final userData =
         Provider.of<UserProvider>(context, listen: true).userAlreadyexist;
     return Drawer(
@@ -63,7 +63,7 @@ class MyDrawer extends StatelessWidget {
                   badgeColor: AppColorLight.primaryColor),
               showBadge: showBadgeLike,
               badgeContent: Text(
-                '${Provider.of<FavoriteProvider>(context).likesItem.length}',
+                '${Provider.of<FavoriteProvider>(context).favoriteItems.length}',
                 style: const TextStyle(color: Colors.white),
               ),
             ),

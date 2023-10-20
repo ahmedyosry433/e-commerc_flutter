@@ -37,8 +37,10 @@ class Product {
       'id': id,
       'title': title,
       'price': price,
-      'category': quantity,
+      'category': category,
       'rating': rating,
+      'image': image,
+      'quantity': quantity
     };
   }
 }

@@ -7,6 +7,7 @@ import 'package:flutter_welcome_login_singup_screens/core/global/theme/app_color
 import 'package:flutter_welcome_login_singup_screens/core/server/category-apis.dart';
 import 'package:flutter_welcome_login_singup_screens/core/server/product-apis.dart';
 import 'package:flutter_welcome_login_singup_screens/model/product-model.dart';
+import 'package:flutter_welcome_login_singup_screens/provider/favorite-provider.dart';
 import 'package:flutter_welcome_login_singup_screens/widgets/componant/categories.dart';
 import 'package:provider/provider.dart';
 import '../../provider/cart-provider.dart';
@@ -25,19 +26,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  User? user = FirebaseAuth.instance.currentUser;
   getUserInfo() async {
     User? user = FirebaseAuth.instance.currentUser;
     await Provider.of<UserProvider>(context, listen: false)
         .getUserByUid(uid: user?.uid);
-  }
-
-  @override
-  void initState() {
-    getCategories();
-    getProduct();
-    getUserInfo();
-
-    super.initState();
   }
 
   bool isLoad = false;
@@ -48,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         isLoad = true;
       });
-    } 
+    }
     //start loading =true
     //end loding = false
   }
@@ -56,6 +49,24 @@ class _HomePageState extends State<HomePage> {
   getCategories() async {
     List category = await CategoryApis.getCategories();
     context.read<ProductListProvider>().setcategoies(category);
+  }
+
+  getCarts() async {
+    context.read<CartProvider>().getUserCarts(user?.uid);
+  }
+
+  getFavorites() async {
+    context.read<FavoriteProvider>().getUserFavoriteFromFirebase(user?.uid);
+  }
+
+  @override
+  void initState() {
+    getCategories();
+    getProduct();
+    getUserInfo();
+    getCarts();
+    getFavorites();
+    super.initState();
   }
 
   @override

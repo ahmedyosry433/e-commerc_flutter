@@ -46,25 +46,20 @@ class CartProvider with ChangeNotifier {
           existingItem.quantity * double.parse(newProduct.price.toString());
       if (existingItem.quantity == 0) {
         cartItems.removeWhere((item) => item.productId == newProduct.id);
-        print(
-            "_________________FROM IF____quantity:${existingItem.quantity}&&lenght: ${cartItems.length}&& cartitem:$cartItems");
       }
     } else {
       cartItems.removeWhere((item) => item.productId == newProduct.id);
-      print(
-          "_____________FROM ELSE________quantity:${existingItem?.quantity}&&lenght: ${cartItems.length}&& cartitem:$cartItems");
     }
-    print(
-        "_____________________quantity:${existingItem?.quantity}&&lenght: ${cartItems.length}&& cartitem:$cartItems");
-    notifyListeners();
+
     totalCartPrice -= existingItem!.product.price;
     // calcTotalCartPrice();
+    saveCartItemInFirebase();
+    notifyListeners();
   }
 
   calcTotalCartPrice() {
     for (var i = 0; i < cartItems.length; i++) {
       totalCartPrice += cartItems[i].product.price;
-      print('________$totalCartPrice');
     }
   }
 
@@ -81,22 +76,13 @@ class CartProvider with ChangeNotifier {
         'title': item.title,
         'totalPrice': item.totalPrice,
         'quantity': item.quantity,
-        'product': {
-          'title': item.title,
-          'id': '12',
-          'price': '12',
-          'description': 'sss',
-          'category': '22',
-          'image': '',
-          'rating': '12',
-          'quantity': '0',
-        }
+        'product': item.product.toJson(),
       });
     }
-    await retrieveUserCart(user?.uid);
+    await getUserCarts(user?.uid);
   }
 
-  Future<void> retrieveUserCart(String? userUid) async {
+  Future<void> getUserCarts(String? userUid) async {
     CollectionReference userCartRef = FirebaseFirestore.instance
         .collection('users')
         .doc(userUid)
@@ -108,17 +94,17 @@ class CartProvider with ChangeNotifier {
         title: doc['title'],
         totalPrice: doc['totalPrice'],
         quantity: doc['quantity'],
-        // product: Product.fromJson(doc['product']),
-        product: Product(
-          id: 'dd',
-          price: 23,
-          title: 're',
-          description: '',
-          quantity: 3,
-          category: 'ee',
-          image: 'null',
-          rating: 12,
-        ),
+        product: Product.fromJson(doc['product']),
+        // product: Product(
+        //   id: 'dd',
+        //   price: 23,
+        //   title: 're',
+        //   description: '',
+        //   quantity: 3,
+        //   category: 'ee',
+        //   image: 'null',
+        //   rating: 12,
+        // ),
       );
     }).toList();
     cartItems = firebaseCartItems;
