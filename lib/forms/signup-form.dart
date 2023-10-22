@@ -149,7 +149,7 @@ class SignupForm extends StatelessWidget {
                     content: Text('Registration Is Success'),
                   ),
                 );
-                Navigator.popAndPushNamed(context, '/auth');
+                Navigator.popAndPushNamed(context, '/splash');
                 /* } on FirebaseAuthException catch (e) {
                   
                     print('____F________________$e');
