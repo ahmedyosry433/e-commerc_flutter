@@ -22,7 +22,7 @@ class MyDrawer extends StatelessWidget {
     bool showBadgeLike =
         Provider.of<FavoriteProvider>(context).favoriteItems.isNotEmpty;
     final userData =
-        Provider.of<UserProvider>(context, listen: true).userAlreadyexist;
+        Provider.of<UserProvider>(context, listen: true).currentUser;
     return Drawer(
       child: ListView(
         children: [

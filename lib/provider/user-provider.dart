@@ -8,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserProvider with ChangeNotifier {
-  dynamic userAlreadyexist;
+  dynamic currentUser;
 
   Future<void> addUserInfoToFirebase(
       {required User user,
@@ -37,12 +37,12 @@ class UserProvider with ChangeNotifier {
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
       if (userSnapshot.exists) {
-        userAlreadyexist = userSnapshot.data() as Map<String, dynamic>;
+        currentUser = userSnapshot.data() as Map<String, dynamic>;
       } else {
-        userAlreadyexist = {};
+        currentUser = {};
       }
     } catch (e) {
-      userAlreadyexist = {};
+      currentUser = {};
     }
     notifyListeners();
     return {};
@@ -54,8 +54,7 @@ class UserProvider with ChangeNotifier {
     final pickedFile = await pick.pickImage(source: source);
     if (pickedFile != null) {
       imageProfile = File(pickedFile.path);
-      print('_______provider____picker');
-      print('_______P____picker$imageProfile');
+     
 
       notifyListeners();
     }

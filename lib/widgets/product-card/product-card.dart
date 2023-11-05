@@ -86,7 +86,7 @@ class ProductCard extends StatelessWidget {
                                     .showSnackBar(const SnackBar(
                                   content: Text("Added Faild "),
                                 ));
-                                print('_____________$e');
+                               
                               }
                             },
                             child: Container(

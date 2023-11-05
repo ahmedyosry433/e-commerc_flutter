@@ -18,16 +18,20 @@ class ProfileForm extends StatefulWidget {
 class _ProfileFormState extends State<ProfileForm> {
   GlobalKey<FormState> formKey = GlobalKey();
 
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
-    final imagefrompicker = Provider.of<UserProvider>(context).imageProfile;
     final userData =
-        Provider.of<UserProvider>(context, listen: false).userAlreadyexist;
+        Provider.of<UserProvider>(context, listen: false).currentUser;
+    final TextEditingController firstNameController =
+        TextEditingController(text: userData['firstName']);
+    final TextEditingController lastNameController =
+        TextEditingController(text: userData['lastName']);
+    final TextEditingController addressController =
+        TextEditingController(text: userData['address']);
+    final TextEditingController phoneController =
+        TextEditingController(text: userData['phone']);
+    final imagefrompicker = Provider.of<UserProvider>(context).imageProfile;
     return Form(
       key: formKey,
       child: Column(children: [
@@ -48,7 +52,7 @@ class _ProfileFormState extends State<ProfileForm> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                 child: TextFormField(
-                  controller: _firstNameController,
+                  controller: firstNameController,
                   keyboardType: TextInputType.name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -58,18 +62,16 @@ class _ProfileFormState extends State<ProfileForm> {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(
-                    hintText: "${userData['firstName']}" == null
-                        ? "First Name"
-                        : "${userData['firstName']}",
-                    enabledBorder: const OutlineInputBorder(
+                  decoration: const InputDecoration(
+                    hintText: "First Name",
+                    enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                           color: AppColorLight.primaryColor, width: 0.5),
                     ),
-                    focusedBorder: const OutlineInputBorder(
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: AppColorLight.secondColor),
                     ),
-                    errorBorder: const OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                           color: AppColorLight.primaryColor, width: 0.5),
                     ),
@@ -79,7 +81,7 @@ class _ProfileFormState extends State<ProfileForm> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: TextFormField(
-                  controller: _lastNameController,
+                  controller: lastNameController,
                   keyboardType: TextInputType.name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -89,19 +91,17 @@ class _ProfileFormState extends State<ProfileForm> {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(
-                      hintText: "${userData['lastName']}" != null
-                          ? "${userData['lastName']}"
-                          : "last Name",
-                      enabledBorder: const OutlineInputBorder(
+                  decoration: const InputDecoration(
+                      hintText: "last Name",
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColorLight.primaryColor, width: 0.5),
                       ),
-                      errorBorder: const OutlineInputBorder(
+                      errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColorLight.primaryColor, width: 0.5),
                       ),
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: AppColorLight.secondColor),
                       )),
@@ -131,7 +131,7 @@ class _ProfileFormState extends State<ProfileForm> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: TextFormField(
-                  controller: _phoneController,
+                  controller: phoneController,
                   keyboardType: TextInputType.phone,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -141,18 +141,16 @@ class _ProfileFormState extends State<ProfileForm> {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(
-                    hintText: "${userData['phone']}" != null
-                        ? "${userData['phone']}"
-                        : "Phone",
-                    enabledBorder: const OutlineInputBorder(
+                  decoration: const InputDecoration(
+                    hintText: "Phone",
+                    enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                           color: AppColorLight.primaryColor, width: 0.5),
                     ),
-                    focusedBorder: const OutlineInputBorder(
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: AppColorLight.secondColor),
                     ),
-                    errorBorder: const OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                           color: AppColorLight.primaryColor, width: 0.5),
                     ),
@@ -162,7 +160,7 @@ class _ProfileFormState extends State<ProfileForm> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: TextFormField(
-                  controller: _addressController,
+                  controller: addressController,
                   keyboardType: TextInputType.streetAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -171,19 +169,17 @@ class _ProfileFormState extends State<ProfileForm> {
                       return null;
                     }
                   },
-                  decoration: InputDecoration(
-                      hintText: "${userData['address']}" != null
-                          ? "${userData['address']}"
-                          : "Address",
-                      enabledBorder: const OutlineInputBorder(
+                  decoration: const InputDecoration(
+                      hintText: "Address",
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColorLight.primaryColor, width: 0.5),
                       ),
-                      errorBorder: const OutlineInputBorder(
+                      errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColorLight.primaryColor, width: 0.5),
                       ),
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: AppColorLight.secondColor),
                       )),
@@ -202,16 +198,15 @@ class _ProfileFormState extends State<ProfileForm> {
                   await Provider.of<UserProvider>(context, listen: false)
                       .addUserInfoToFirebase(
                     user: user!,
-                    firstName: _firstNameController.text,
-                    lastName: _lastNameController.text,
-                    phone: _phoneController.text,
-                    address: _addressController.text,
+                    firstName: firstNameController.text,
+                    lastName: lastNameController.text,
+                    phone: phoneController.text,
+                    address: addressController.text,
                     image: imagefrompicker!,
                   );
                   Provider.of<UserProvider>(context, listen: false)
                       .getUserByUid(uid: user?.uid);
-                  print(
-                      'EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE____${Provider.of<UserProvider>(context, listen: false).getUserByUid(uid: user?.uid)}');
+
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -219,14 +214,12 @@ class _ProfileFormState extends State<ProfileForm> {
                     ),
                   );
                 }
-                print('__________________________________DONE');
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Updated Faild'),
                   ),
                 );
-                print('__________________________________$e');
               }
             },
             child: const Text(

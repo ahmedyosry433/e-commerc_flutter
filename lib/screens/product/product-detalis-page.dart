@@ -34,7 +34,6 @@ class productDetails extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Added Faild "),
                   ));
-                  print('_____________$e');
                 }
               },
               child: const Icon(Icons.add_shopping_cart)),

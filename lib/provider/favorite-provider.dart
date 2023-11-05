@@ -63,7 +63,7 @@ class FavoriteProvider with ChangeNotifier {
     WriteBatch batch = FirebaseFirestore.instance.batch();
     QuerySnapshot favoriteSnapshot = await userFavoriteRef.get();
     for (QueryDocumentSnapshot doc in favoriteSnapshot.docs) {
-      print('____________CLEAR_ ${doc.reference}');
+    
       batch.delete(doc.reference);
     }
     await batch.commit();

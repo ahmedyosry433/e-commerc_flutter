@@ -29,7 +29,7 @@ class LoginProvider with ChangeNotifier {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     } catch (e) {
-      print('______________Error sending password reset email: $e');
+      throw Exception('error from reset password');
     }
   }
 
@@ -48,7 +48,7 @@ class LoginProvider with ChangeNotifier {
             stickyAuth: true,
           ));
     } catch (e) {
-      print('____________From Biometric__________$e ');
+      
       return false;
     }
   }
