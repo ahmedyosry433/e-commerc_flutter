@@ -2,7 +2,7 @@
 
 class Constants {
   // ignore: non_constant_identifier_names
-  static const ProjectName = "clothes store";
+  static const ProjectName = "Shopping Store";
   static const ApiUrl = "https://fakestoreapi.com/products";
   static const category = "/category/";
 
