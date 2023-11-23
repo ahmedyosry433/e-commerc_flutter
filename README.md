@@ -2,6 +2,19 @@
 
 This Flutter project is an eCommerce mobile application that allows users to browse products by categories, add items to their cart, and complete purchases. It also features user authentication and registration using Firebase for a seamless shopping experience.
 
+## Installation
+
+To install the Shopping Store on your device, follow these steps:
+
+1. Download the APK file from the [Google Drive link](<insert_google_drive_link_here>).
+2. Enable installation from unknown sources in your device settings.
+3. Install the APK file on your device.
+
+## Screenshots
+
+![Screenshot 1](<https://i.imgur.com/gj8504T.png>)
+
+
 ## Technologies Used
 
 - **Flutter**: A cross-platform app development framework.
