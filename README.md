@@ -6,7 +6,7 @@ This Flutter project is an eCommerce mobile application that allows users to bro
 
 To install the Shopping Store on your device, follow these steps:
 
-1. Download the APK file from the [Google Drive link](<insert_google_drive_link_here>).
+1. Download the APK file from the [Google Drive link](<https://drive.google.com/drive/u/1/folders/1Kmnh8-WmKLp112GcNKzM2LarYyUWdvuY>).
 2. Enable installation from unknown sources in your device settings.
 3. Install the APK file on your device.
 
