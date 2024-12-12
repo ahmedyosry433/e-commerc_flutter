@@ -60,6 +60,7 @@ class _LoginState extends State<Login> {
                               borderRadius: BorderRadius.circular(66),
                               color: AppColorLight.textBoxColor),
                           child: TextField(
+                            style: TextStyle(fontSize: 15),
                             controller: _userNameController,
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
@@ -78,6 +79,7 @@ class _LoginState extends State<Login> {
                               color: AppColorLight.textBoxColor,
                               borderRadius: BorderRadius.circular(66)),
                           child: TextField(
+                            style: TextStyle(fontSize: 15),
                             controller: _passwordController,
                             obscureText: providerSub.visibility,
                             decoration: InputDecoration(

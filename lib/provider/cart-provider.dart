@@ -30,7 +30,7 @@ class CartProvider with ChangeNotifier {
           product: newProduct));
     }
     calcTotalCartPrice();
- 
+
     saveCartItemInFirebase();
     notifyListeners();
     // totalCartPrice += existingItem!.product.price;

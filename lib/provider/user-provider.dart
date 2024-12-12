@@ -54,7 +54,6 @@ class UserProvider with ChangeNotifier {
     final pickedFile = await pick.pickImage(source: source);
     if (pickedFile != null) {
       imageProfile = File(pickedFile.path);
-     
 
       notifyListeners();
     }

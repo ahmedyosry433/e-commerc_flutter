@@ -52,6 +52,7 @@ class _ProfileFormState extends State<ProfileForm> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                 child: TextFormField(
+                  style: TextStyle(fontSize: 15),
                   controller: firstNameController,
                   keyboardType: TextInputType.name,
                   validator: (value) {
@@ -81,6 +82,7 @@ class _ProfileFormState extends State<ProfileForm> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: TextFormField(
+                  style: TextStyle(fontSize: 15),
                   controller: lastNameController,
                   keyboardType: TextInputType.name,
                   validator: (value) {
@@ -110,6 +112,7 @@ class _ProfileFormState extends State<ProfileForm> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: TextFormField(
+                  style: TextStyle(fontSize: 15),
                   readOnly: true,
                   decoration: InputDecoration(
                     hintText: "${user!.email}",
@@ -131,6 +134,7 @@ class _ProfileFormState extends State<ProfileForm> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: TextFormField(
+                  style: TextStyle(fontSize: 15),
                   controller: phoneController,
                   keyboardType: TextInputType.phone,
                   validator: (value) {
@@ -160,6 +164,7 @@ class _ProfileFormState extends State<ProfileForm> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: TextFormField(
+                  style: TextStyle(fontSize: 15),
                   controller: addressController,
                   keyboardType: TextInputType.streetAddress,
                   validator: (value) {
@@ -190,7 +195,7 @@ class _ProfileFormState extends State<ProfileForm> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 10, bottom: 20),
           child: ElevatedButton(
             onPressed: () async {
               try {
@@ -215,6 +220,7 @@ class _ProfileFormState extends State<ProfileForm> {
                   );
                 }
               } catch (e) {
+                print(e);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Updated Faild'),

@@ -57,11 +57,13 @@ class CartCard extends StatelessWidget {
                         children: [
                           Text(
                             subtitle,
-                            style: Theme.of(context).textTheme.titleSmall,
+                            style: TextStyle(fontSize: 18),
                           ),
                           const SizedBox(height: 4),
                           Text(
-                              "Total: ${double.parse((cartItem.totalPrice).toStringAsFixed(2))} "),
+                            "Total: ${double.parse((cartItem.totalPrice).toStringAsFixed(2))} ",
+                            style: TextStyle(fontSize: 8),
+                          ),
                         ],
                       ),
                     ),
